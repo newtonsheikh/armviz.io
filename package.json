@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-redux": "^5.0.10",
     "@types/reactstrap": "^4.6.1",
     "bootstrap": "4.0.0-beta",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
     "react-scripts-ts": "2.7.0",
-    "reactstrap": "^5.0.0-alpha.3"
+    "reactstrap": "^5.0.0-alpha.3",
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",

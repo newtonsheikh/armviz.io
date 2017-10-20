@@ -1,0 +1,97 @@
+{
+    "Authorization": [
+        {
+            "locks": "2016-09-01"
+        }
+    ],
+
+    "Automation": [
+        {
+            "automationAccounts": [
+                {
+                    "certificates": "2015-10-31",
+                    "compilationjobs": "2015-10-31",
+                    "configurations": "2015-10-31",
+                    "connections": "2015-10-31"
+                }
+            ]
+        }
+    ],
+
+    "Compute": [
+        {
+            "virtualMachines": "2017-03-30",
+            "virtualMachines/extensions": "2017-03-30",
+            "virtualMachineScaleSets": "2017-03-30",
+            "availabilitySets": "2017-03-30",
+            "disks": "2017-03-30",
+            "images": "2017-03-30",
+            "snapshots": "2017-03-30"
+        }
+    ],
+
+    "Network": [
+        {
+            "applicationGateways": "2017-03-01",
+            "connections": "2017-03-01",
+            "dnzZones": [
+                {
+                    "A": "2016-04-01",
+                    "AAAA": "2016-04-01",
+                    "CNAME": "2016-04-01",
+                    "MX": "2016-04-01",
+                    "NS": "2016-04-01",
+                    "PTR": "2016-04-01",
+                    "SOA": "2016-04-01",
+                    "SRV": "2016-04-01",
+                    "TXT": "2016-04-01"
+                }
+            ],
+            "expressRouteCircuits": [
+                {
+                    "authorizations": "2017-03-01",
+                    "peerings": "2017-03-01"
+                }
+            ],
+            "loadBalancers": "2017-03-01",
+            "localNetworkGateways": "2017-03-01",
+            "networkInterfaces": "2017-03-01",
+            "networkSecurityGroups": [
+                {
+                    "securityRules": "2017-03-01"
+                }
+            ],
+            "networkWatchers": [
+                {
+                    "packetCaptures": "2017-03-01"
+                }
+            ],
+            "publicIPAddresses": "2017-03-01",
+            "routeFilters": [
+                {
+                    "routeFilterRules": "2017-03-01"
+                }
+            ],
+            "routeTables": [
+                {
+                    "routes": "2017-03-01"
+                }
+            ],
+            "trafficmanagerprofiles": "2015-11-01",
+            "virtualNetworkGateways": "2017-03-01",
+            "virtualNetworks": [
+                {
+                    "subnets": "2017-03-01",
+                    "virtualNetworkPeerings": "2017-03-01"
+                }
+            ]
+        }
+    ],
+
+    "Storage": [
+        {
+            "storageAccounts": "2017-06-01"
+        }
+    ]
+
+}

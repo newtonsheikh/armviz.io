@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.header`
@@ -43,18 +43,14 @@ const NavLink = Link.extend`
   }
 `;
 
-const Header: SFC = () => {
-  return (
-    <Wrapper>
-      <Brand href="/">ARM Visualizer</Brand>
-      <Nav>
-        <NavLink href="/">QuickStart</NavLink>
-        <NavLink href="/">GitHub</NavLink>
-        <NavLink href="/">Feedback</NavLink>
-        <NavLink href="/">Help</NavLink>
-      </Nav>
-    </Wrapper>
-  );
-};
-
-export default Header;
+export default () => (
+  <Wrapper>
+    <Brand href="/">ARM Visualizer</Brand>
+    <Nav>
+      <NavLink href="/">QuickStart</NavLink>
+      <NavLink href="/">GitHub</NavLink>
+      <NavLink href="/">Feedback</NavLink>
+      <NavLink href="/">Help</NavLink>
+    </Nav>
+  </Wrapper>
+);

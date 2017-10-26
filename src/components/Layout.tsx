@@ -13,7 +13,7 @@ import 'golden-layout/src/css/goldenlayout-light-theme.css';
 (window as any).jQuery = (window as any).$ = $;
 
 export default class Layout extends Component {
-  private _layoutDiv: any;
+  private _layoutDiv: HTMLDivElement;
 
   componentDidMount() {
     const layout = new GoldenLayout({

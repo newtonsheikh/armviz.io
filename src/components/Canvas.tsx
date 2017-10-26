@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 // require('cytoscape-cola');
 const cytoscape = require('cytoscape');
@@ -9,21 +9,18 @@ const automove = require('cytoscape-automove');
 cytoscape.use(cola);
 automove(cytoscape);
 
-// const Div = styled.div`
-//   width: 100%;
-//   height: 100%;
-// `;
-const style = {
-  height: '100%'
-};
+const Div = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 export default class Canvas extends Component {
-  // private _cyDiv: any;
+  private _cyDiv: HTMLDivElement;
   private _cy: any;
 
   componentDidMount() {
     const cy = cytoscape({
-      container: document.getElementById('cy'),
+      container: this._cyDiv,
       boxSelectionEnabled: false,
       autounselectify: true,
       style: [
@@ -146,7 +143,7 @@ export default class Canvas extends Component {
 
   render() {
     return (
-      <div id="cy" style={style} />
+      <Div innerRef={el => this._cyDiv = el} />
     );
   }
 }

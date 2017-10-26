@@ -1,11 +1,12 @@
 import GoldenLayout from 'golden-layout';
 import $ from 'jquery';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Toolbox from '../containers/Toolbox';
+import Canvas from './Canvas';
 
 import 'golden-layout/src/css/goldenlayout-base.css';
 import 'golden-layout/src/css/goldenlayout-light-theme.css';
-import * as ReactDOM from 'react-dom';
 
 (window as any).React = React;
 (window as any).ReactDOM = ReactDOM;
@@ -20,18 +21,19 @@ export default class Layout extends Component {
         type: 'row',
         content: [{
           type: 'react-component',
-          title: 'toolbox 1',
-          component: 'toolbox-1'
+          title: 'Toolbox',
+          component: 'toolbox',
+          width: 20
         }, {
           type: 'react-component',
-          title: 'toolbox 1',
-          component: 'toolbox-2'
+          title: 'Canvas',
+          component: 'canvas'
         }]
       }]
     }, this._layoutDiv);
 
-    layout.registerComponent('toolbox-1', Toolbox);
-    layout.registerComponent('toolbox-2', Toolbox);
+    layout.registerComponent('toolbox', Toolbox);
+    layout.registerComponent('canvas', Canvas);
     layout.init();
 
     window.addEventListener('resize', () => { layout.updateSize(); });
@@ -39,7 +41,7 @@ export default class Layout extends Component {
 
   render() {
     return (
-      <div className="goldenLayout" ref={input => this._layoutDiv = input} />
+      <div className="goldenLayout" ref={el => this._layoutDiv = el} />
     );
   }
 }

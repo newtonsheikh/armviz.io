@@ -6,5 +6,19 @@
   "repository": "git@github.com:armviz/armviz.io.git",
   "author": "Shenglong Li <shenglong.li@outlook.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "start": "react-scripts-ts start"
+  },
+  "devDependencies": {
+    "react-scripts-ts": "^2.8.0"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "styled-components": "^2.2.2"
+  }
 }

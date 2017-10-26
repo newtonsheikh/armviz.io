@@ -1,0 +1,10 @@
+{
+  "name": "armviz.io",
+  "version": "1.0.0",
+  "description": "ARM visualizer website",
+  "main": "index.js",
+  "repository": "git@github.com:armviz/armviz.io.git",
+  "author": "Shenglong Li <shenglong.li@outlook.com>",
+  "license": "MIT",
+  "private": true
+}

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { treeNodeActions } from '../../actions/index';
-import TreeNode, { TreeNodeProps } from '../../components/shared/TreeNode';
+import { TreeNode, TreeNodeProps } from '../../components/shared/TreeNode';
 
 type TreeNodeOwnProps = Pick<TreeNodeProps, 'context' | 'path'>;
 type TreeNodeStateProps = Pick<TreeNodeProps, 'data' | 'expanded' | 'childIds'>;

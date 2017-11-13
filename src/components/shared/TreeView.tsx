@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { SFC } from 'react';
+import React, { ComponentClass, SFC } from 'react';
 import styled from 'styled-components';
 import TreeNode from '../../containers/shared/TreeNode';
 
@@ -14,7 +14,7 @@ export interface TreeViewProps {
   path?: string[];
   depth?: number;
   nodeIds: string[];
-  NodeContent: SFC<{data: any}>;
+  NodeContent: ComponentClass<{data: any}>;
 }
 
 export const TreeView: SFC<TreeViewProps> = ({ context, path, depth, nodeIds, NodeContent }) => (

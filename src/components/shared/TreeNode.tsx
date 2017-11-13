@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import React, { ReactInstance, SFC } from 'react';
-import { ConnectDragSource, DragSource } from 'react-dnd';
-import { findDOMNode } from 'react-dom';
+import React, { ComponentClass, SFC } from 'react';
 import styled from 'styled-components';
 import { withProps } from '../../utils/withProps';
 import { TreeView } from './TreeView';
@@ -41,16 +39,13 @@ export interface TreeNodeProps {
   path: string[];
   depth: number;
   data: any;
-  Content: SFC<{ data: any }>;
+  Content: ComponentClass<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
-  connectDragSource?: ConnectDragSource;
   toggle: (context: string, nodeId: string) => any;
 }
 
-const TreeNode: SFC<TreeNodeProps> = ({
-  context, path, depth, data, Content, expanded, childIds, connectDragSource, toggle
-}) => {
+export const TreeNode: SFC<TreeNodeProps> = ({ context, path, depth, data, Content, expanded, childIds, toggle }) => {
   const nodeId = _.last(path);
 
   const StyledContent = styled(Content) `
@@ -69,7 +64,7 @@ const TreeNode: SFC<TreeNodeProps> = ({
   };
 
   const renderNode = () => (
-    <NodeWrapper ref={(el: ReactInstance) => connectDragSource(findDOMNode(el) as any)} >
+    <NodeWrapper>
       <CaretWrapper depth={depth} onClick={handleClick}>
         {childIds && !expanded && <Caret viewBox="0 0 12 12"><path d="M 4 2.5 V 9.5 L 8 6 Z" /></Caret>}
         {childIds && expanded && <Caret expanded viewBox="0 0 12 12"><path d="M 8 3.5 V 9 H 3 Z" /></Caret>}
@@ -93,21 +88,3 @@ const TreeNode: SFC<TreeNodeProps> = ({
     </ListItem>
   );
 };
-
-const Types = {
-  TREE_NODE: 'TreeNode'
-};
-
-const treeNodeSource = {
-  beginDrag() {
-    return {};
-  }
-};
-
-function collect(conn: any, monitor: any) {
-  return {
-    connectDragSource: conn.dragSource(),
-  };
-}
-
-export default DragSource<TreeNodeProps>(Types.TREE_NODE, treeNodeSource, collect)(TreeNode);

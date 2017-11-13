@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, SFC } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { Provider } from 'react-redux';
@@ -78,12 +78,18 @@ const store = createStore(RootReducer, {
 
 class App extends Component {
   render() {
+    const NodeContent: SFC<{ data: { label: string }, className: string }> = (props) => (
+      <div className={props.className}>
+        <span>{props.data.label}</span>
+      </div>
+    );
+
     return (
       <Provider store={store}>
         <TreeView
           context={'treeView'}
           nodeIds={['1', '5']}
-          nodeContent={(data: { label: string }) => (<span>{data.label}</span>)}
+          NodeContent={NodeContent}
         />
       </Provider>
     );

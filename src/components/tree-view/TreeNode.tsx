@@ -8,25 +8,20 @@ import { TreeView } from './TreeView';
 
 //#region Styled Components
 
-const NodeWrapper = withProps<{ depth: number }>()(styled.div) `
-  padding: 3px;
-  padding-left: ${props => props.depth * 12 + 'px;'}
-  user-select: none;
-  &:hover {
-    background-color: #efefef;
-  }
+const NodeWrapper = styled.div`
+  position: relative;
 `;
 
-const CaretWrapper = styled.div`
-  display: inline-block;
+const CaretWrapper = withProps<{ depth: number }>()(styled.div) `
+  position: absolute;
+  left: ${props => props.depth * 12 + 'px'};
   height: 100%;
-  width: 12px;
-  margin-left: 6px;
-  margin-right: 3px;
   cursor: pointer;
 `;
 
 const Caret = withProps<{ expanded?: boolean }>()(styled.svg) `
+  width: 12px;
+  height: 100%;
   > path {
     stroke: gray;
     stroke-width: ${props => props.expanded ? '0.5px' : '1px'};
@@ -46,7 +41,7 @@ export interface TreeNodeProps {
   path: string[];
   depth: number;
   data: any;
-  content: (data: any) => JSX.Element;
+  Content: SFC<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
   connectDragSource?: ConnectDragSource;
@@ -54,9 +49,18 @@ export interface TreeNodeProps {
 }
 
 const TreeNode: SFC<TreeNodeProps> = ({
-  context, path, depth, data, content, expanded, childIds, connectDragSource, toggle
+  context, path, depth, data, Content, expanded, childIds, connectDragSource, toggle
 }) => {
   const nodeId = _.last(path);
+
+  const StyledContent = styled(Content) `
+    padding: 3px 0;
+    padding-left: ${depth * 12 + 15 + 'px'};
+    user-select: none;
+    &:hover {
+      background-color: #efefef;
+    }
+  `;
 
   const handleClick = () => {
     if (childIds) {
@@ -65,12 +69,12 @@ const TreeNode: SFC<TreeNodeProps> = ({
   };
 
   const renderNode = () => (
-    <NodeWrapper depth={depth} ref={(el: ReactInstance) => connectDragSource(findDOMNode(el) as any)} >
-      <CaretWrapper onClick={handleClick}>
-        {childIds && !expanded && <Caret viewBox="0 0 12 12"><path d="M 4 3.5 V 10.5 L 8 7 Z" /></Caret>}
-        {childIds && expanded && <Caret expanded viewBox="0 0 12 12"><path d="M 8 4 V 9.5 H 3 Z" /></Caret>}
+    <NodeWrapper ref={(el: ReactInstance) => connectDragSource(findDOMNode(el) as any)} >
+      <CaretWrapper depth={depth} onClick={handleClick}>
+        {childIds && !expanded && <Caret viewBox="0 0 12 12"><path d="M 4 2.5 V 9.5 L 8 6 Z" /></Caret>}
+        {childIds && expanded && <Caret expanded viewBox="0 0 12 12"><path d="M 8 3.5 V 9 H 3 Z" /></Caret>}
       </CaretWrapper>
-      {content(data)}
+      <StyledContent data={data} />
     </NodeWrapper>
   );
 
@@ -83,7 +87,7 @@ const TreeNode: SFC<TreeNodeProps> = ({
           path={path}
           depth={depth}
           nodeIds={childIds}
-          nodeContent={content}
+          NodeContent={Content}
         />
       }
     </ListItem>

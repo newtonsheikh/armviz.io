@@ -14,10 +14,10 @@ export interface TreeViewProps {
   path?: string[];
   depth?: number;
   nodeIds: string[];
-  nodeContent: (data: any) => JSX.Element;
+  NodeContent: SFC<{data: any}>;
 }
 
-export const TreeView: SFC<TreeViewProps> = ({ context, path, depth, nodeIds, nodeContent }) => (
+export const TreeView: SFC<TreeViewProps> = ({ context, path, depth, nodeIds, NodeContent }) => (
   <List>
     {nodeIds.map(nodeId => (
       <TreeNode
@@ -25,7 +25,7 @@ export const TreeView: SFC<TreeViewProps> = ({ context, path, depth, nodeIds, no
         context={context}
         path={path ? _.concat(path, nodeId) : [nodeId]}
         depth={depth !== undefined ? depth + 1 : 0}
-        content={nodeContent}
+        Content={NodeContent}
       />
     ))}
   </List>

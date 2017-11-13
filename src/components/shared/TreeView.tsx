@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { SFC } from 'react';
 import styled from 'styled-components';
-import TreeNode from '../../containers/tree-view/TreeNode';
+import TreeNode from '../../containers/shared/TreeNode';
 
 const List = styled.ul`
   list-style-type: none;

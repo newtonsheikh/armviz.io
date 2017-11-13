@@ -4,7 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import RootReducer from '../reducers';
-import { TreeView } from './tree-view/TreeView';
+import { TreeView } from './shared/TreeView';
 
 const store = createStore(RootReducer, {
   treeView: {

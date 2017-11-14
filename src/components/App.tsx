@@ -76,18 +76,6 @@ const store = createStore(RootReducer, {
 
 export default class App extends Component {
   render() {
-    // tslint:disable-next-line:max-classes-per-file
-    // const NodeContent = class extends Component<{ data: { resourceName: string }, className: string }> {
-    //   render() {
-    //     const { data, className } = this.props;
-    //     return (
-    //       <div className={className}>
-    //         <span>{data.resourceName}</span>
-    //       </div>
-    //     );
-    //   }
-    // };
-
     return (
       <Provider store={store}>
         <Toolbox />

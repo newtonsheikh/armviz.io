@@ -1,6 +1,6 @@
-import React, { ComponentClass, SFC } from 'react';
+import React, { ComponentType, SFC } from 'react';
 import styled from 'styled-components';
-import TreeNode from '../../containers/shared/TreeNode';
+import { TreeNode } from './tree-node';
 
 const List = styled.ul`
   list-style-type: none;
@@ -13,7 +13,7 @@ export interface TreeViewProps {
   parentId?: string;
   depth?: number;
   nodeIds: string[];
-  NodeContent: ComponentClass<{data: any}>;
+  NodeContent: ComponentType<{ data: any }>;
 }
 
 export const TreeView: SFC<TreeViewProps> = ({ namespace, parentId, depth, nodeIds, NodeContent }) => (

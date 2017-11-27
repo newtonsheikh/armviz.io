@@ -1,7 +1,7 @@
-import React, { ComponentClass, SFC } from 'react';
+import React, { ComponentType, SFC  } from 'react';
 import styled from 'styled-components';
-import { Caret } from './Caret';
-import { TreeView } from './TreeView';
+import { TreeView } from '..';
+import { Caret } from '../../caret';
 
 const NodeWrapper = styled.div`
   position: relative;
@@ -23,14 +23,14 @@ export interface TreeNodeProps {
   parentId?: string;
   depth: number;
   data: any;
-  Content: ComponentClass<{ data: any }>;
+  Content: ComponentType<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
-  toggle: (namespace: string, nodeId: string, expanded: boolean) => any;
+  toggleNode: (namespace: string, nodeId: string, expanded: boolean) => any;
 }
 
 export const TreeNode: SFC<TreeNodeProps> = ({
-  namespace, id, parentId, depth, data, Content, expanded, childIds, toggle
+  namespace, id, parentId, depth, data, Content, expanded, childIds, toggleNode
 }) => {
   const CaretWrapper = styled.div`
     position: absolute;
@@ -39,7 +39,7 @@ export const TreeNode: SFC<TreeNodeProps> = ({
     cursor: pointer;
   `;
 
-  const StyledContent = styled(Content) `
+  const StyledContent = styled(Content as any) `
     padding: 3px 0;
     padding-left: ${depth * 12 + 18 + 'px'};
   `;
@@ -47,7 +47,7 @@ export const TreeNode: SFC<TreeNodeProps> = ({
   const renderNode = () => (
     <NodeWrapper>
       <CaretWrapper>
-        {childIds && <Caret onClick={() => toggle(namespace, id, expanded)} expanded={expanded} />}
+        {childIds && <Caret onClick={() => toggleNode(namespace, id, expanded)} expanded={expanded} />}
       </CaretWrapper>
       <StyledContent data={data} />
     </NodeWrapper>

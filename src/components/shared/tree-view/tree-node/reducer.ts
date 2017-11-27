@@ -1,5 +1,5 @@
 import { Action, combineActions, handleActions } from 'redux-actions';
-import { collapse, expand, toggle, TreeNodeActionPayload } from '../../actions/treeNode';
+import { collapseNode, expandNode, toggleNode, TreeNodeActionPayload } from './actions';
 
 export interface TreeNodeState {
   id: string;
@@ -8,8 +8,8 @@ export interface TreeNodeState {
   childIds?: string[];
 }
 
-export const treeNode = handleActions({
-  [combineActions(toggle, expand, collapse)](state: TreeNodeState, action: Action<TreeNodeActionPayload>) {
+export default handleActions({
+  [combineActions(toggleNode, expandNode, collapseNode)](state: TreeNodeState, action: Action<TreeNodeActionPayload>) {
     const { expanded } = action.payload;
     return { ...state, expanded };
   }

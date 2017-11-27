@@ -1,12 +1,7 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { RootState } from '../reducers/index';
-import RootReducer from '../reducers/index';
-import Toolbox from './toolbox/Toolbox';
+import { RootState } from '../components/app';
 
-const rootState: RootState = {
-  treeView: {
+export const rootState: RootState = {
+  toolboxItems: {
     1: {
       id: '1',
       data: {
@@ -74,15 +69,3 @@ const rootState: RootState = {
     }
   }
 };
-
-const store = createStore(RootReducer, rootState);
-
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Toolbox />
-      </Provider>
-    );
-  }
-}

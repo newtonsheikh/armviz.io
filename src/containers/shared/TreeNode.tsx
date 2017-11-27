@@ -1,14 +1,15 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { treeNodeActions } from '../../actions/index';
+import { toggle } from '../../actions/treeNode';
 import { TreeNode, TreeNodeProps } from '../../components/shared/TreeNode';
+import { RootState } from '../../reducers/index';
 
 type TreeNodeOwnProps = Pick<TreeNodeProps, 'context' | 'path'>;
 type TreeNodeStateProps = Pick<TreeNodeProps, 'data' | 'expanded' | 'childIds'>;
 
-const mapStateToProps = (state: any, ownProps: TreeNodeOwnProps): TreeNodeStateProps => {
+const mapStateToProps = (state: RootState, ownProps: TreeNodeOwnProps): TreeNodeStateProps => {
   const nodeId = _.last(ownProps.path);
-  const nodeState = _.get(state, [ownProps.context, nodeId]);
+  const nodeState = _.get(state, _.concat(ownProps.context, nodeId));
   return {
     data: nodeState.data,
     expanded: nodeState.expanded,
@@ -16,4 +17,4 @@ const mapStateToProps = (state: any, ownProps: TreeNodeOwnProps): TreeNodeStateP
   };
 };
 
-export default connect(mapStateToProps, treeNodeActions)(TreeNode);
+export default connect(mapStateToProps, { toggle })(TreeNode);

@@ -19,18 +19,18 @@ const ListItem = styled.li`
 `;
 
 export interface TreeNodeProps {
-  context: string;
+  context: string[];
   path: string[];
-  depth: number;
   data: any;
   Content: ComponentClass<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
-  toggle: (context: string, nodeId: string) => any;
+  toggle: (route: { context: string[], nodeId: string }, expanded: boolean) => any;
 }
 
-export const TreeNode: SFC<TreeNodeProps> = ({ context, path, depth, data, Content, expanded, childIds, toggle }) => {
+export const TreeNode: SFC<TreeNodeProps> = ({ context, path, data, Content, expanded, childIds, toggle }) => {
   const nodeId = _.last(path);
+  const depth = path.length - 1;
 
   const CaretWrapper = styled.div`
     position: absolute;
@@ -44,10 +44,12 @@ export const TreeNode: SFC<TreeNodeProps> = ({ context, path, depth, data, Conte
     padding-left: ${depth * 12 + 18 + 'px'};
   `;
 
+  const handleClick = () => toggle({ context, nodeId }, expanded);
+
   const renderNode = () => (
     <NodeWrapper>
       <CaretWrapper>
-        {childIds && <Caret onClick={() => toggle(context, nodeId)} expanded={expanded} />}
+        {childIds && <Caret onClick={handleClick} expanded={expanded} />}
       </CaretWrapper>
       <StyledContent data={data} />
     </NodeWrapper>
@@ -60,7 +62,6 @@ export const TreeNode: SFC<TreeNodeProps> = ({ context, path, depth, data, Conte
         <TreeView
           context={context}
           path={path}
-          depth={depth}
           nodeIds={childIds}
           NodeContent={Content}
         />

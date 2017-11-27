@@ -8,7 +8,7 @@ class Toolbox extends PureComponent {
   render() {
     return (
       <TreeView
-        context={'treeView'}
+        context={['treeView']}
         nodeIds={['1', '5']}
         NodeContent={ToolboxItem}
       />

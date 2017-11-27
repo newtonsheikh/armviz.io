@@ -10,21 +10,19 @@ const List = styled.ul`
 `;
 
 export interface TreeViewProps {
-  context: string;
+  context: string[];
   path?: string[];
-  depth?: number;
   nodeIds: string[];
   NodeContent: ComponentClass<{data: any}>;
 }
 
-export const TreeView: SFC<TreeViewProps> = ({ context, path, depth, nodeIds, NodeContent }) => (
+export const TreeView: SFC<TreeViewProps> = ({ context, path, nodeIds, NodeContent }) => (
   <List>
     {nodeIds.map(nodeId => (
       <TreeNode
         key={nodeId}
         context={context}
         path={path ? _.concat(path, nodeId) : [nodeId]}
-        depth={depth !== undefined ? depth + 1 : 0}
         Content={NodeContent}
       />
     ))}

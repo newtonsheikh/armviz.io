@@ -1,10 +1,10 @@
-import _ from 'lodash';
-import { handleAction } from 'redux-actions';
-import { treeNodeActions } from './../actions/index';
+import { combineReducers } from 'redux';
+import treeView, { TreeViewState } from './shared/treeView';
 
-export default handleAction(treeNodeActions.toggle, (state: any, action) => {
-  const { context, nodeId } = action.payload;
-  const expanded = _.get(state, [context, nodeId, 'expanded']);
-  _.set(state, [context, nodeId, 'expanded'], !expanded);
-  return { ...state };
-}, {});
+export interface RootState {
+  treeView: TreeViewState;
+}
+
+export default combineReducers({
+  treeView
+});

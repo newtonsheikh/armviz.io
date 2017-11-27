@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import RootReducer from '../reducers';
+import { RootState } from '../reducers/index';
+import RootReducer from '../reducers/index';
 import Toolbox from './toolbox/Toolbox';
 
-const store = createStore(RootReducer, {
+const rootState: RootState = {
   treeView: {
     1: {
       id: '1',
@@ -72,7 +73,9 @@ const store = createStore(RootReducer, {
       }
     }
   }
-});
+};
+
+const store = createStore(RootReducer, rootState);
 
 export default class App extends Component {
   render() {

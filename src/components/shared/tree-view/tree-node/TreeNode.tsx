@@ -26,11 +26,11 @@ export interface TreeNodeProps {
   Content: ComponentType<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
-  toggleNode: (namespace: string, nodeId: string, expanded: boolean) => any;
+  toggle: (namespace: string, nodeId: string, expanded: boolean) => any;
 }
 
 export const TreeNode: SFC<TreeNodeProps> = ({
-  namespace, id, parentId, depth, data, Content, expanded, childIds, toggleNode
+  namespace, id, parentId, depth, data, Content, expanded, childIds, toggle
 }) => {
   const CaretWrapper = styled.div`
     position: absolute;
@@ -47,7 +47,7 @@ export const TreeNode: SFC<TreeNodeProps> = ({
   const renderNode = () => (
     <NodeWrapper>
       <CaretWrapper>
-        {childIds && <Caret onClick={() => toggleNode(namespace, id, expanded)} expanded={expanded} />}
+        {childIds && <Caret onClick={() => toggle(namespace, id, expanded)} expanded={expanded} />}
       </CaretWrapper>
       <StyledContent data={data} />
     </NodeWrapper>

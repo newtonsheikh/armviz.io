@@ -6,14 +6,14 @@ export interface TreeNodeActionPayload {
   expanded?: boolean;
 }
 
-export const { toggleNode, expandNode, collapseNode } = createActions<TreeNodeActionPayload>({
-  TOGGLE_NODE: (namespace, nodeId, expanded) => ({ namespace, nodeId, expanded: !expanded }),
-  EXPAND_NODE: (namespace, nodeId) => ({ namespace, nodeId }),
-  COLLAPSE_NODE: (namespace, nodeId) => ({ namespace, nodeId })
+export const { toggle, expand, collapse } = createActions<TreeNodeActionPayload>({
+  TOGGLE: (namespace, nodeId, expanded) => ({ namespace, nodeId, expanded: !expanded }),
+  EXPAND: (namespace, nodeId) => ({ namespace, nodeId }),
+  COLLAPSE: (namespace, nodeId) => ({ namespace, nodeId })
 });
 
 export default {
-  toggleNode,
-  expandNode,
-  collapseNode
+  toggle,
+  expand,
+  collapse
 };

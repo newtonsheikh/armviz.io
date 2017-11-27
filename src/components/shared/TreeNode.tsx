@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { ComponentClass, SFC } from 'react';
 import styled from 'styled-components';
 import { Caret } from './Caret';
@@ -19,19 +18,20 @@ const ListItem = styled.li`
 `;
 
 export interface TreeNodeProps {
-  context: string[];
-  path: string[];
+  namespace: string;
+  id: string;
+  parentId?: string;
+  depth: number;
   data: any;
   Content: ComponentClass<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
-  toggle: (route: { context: string[], nodeId: string }, expanded: boolean) => any;
+  toggle: (namespace: string, nodeId: string, expanded: boolean) => any;
 }
 
-export const TreeNode: SFC<TreeNodeProps> = ({ context, path, data, Content, expanded, childIds, toggle }) => {
-  const nodeId = _.last(path);
-  const depth = path.length - 1;
-
+export const TreeNode: SFC<TreeNodeProps> = ({
+  namespace, id, parentId, depth, data, Content, expanded, childIds, toggle
+}) => {
   const CaretWrapper = styled.div`
     position: absolute;
     left: ${depth * 12 + 3 + 'px'};
@@ -44,12 +44,10 @@ export const TreeNode: SFC<TreeNodeProps> = ({ context, path, data, Content, exp
     padding-left: ${depth * 12 + 18 + 'px'};
   `;
 
-  const handleClick = () => toggle({ context, nodeId }, expanded);
-
   const renderNode = () => (
     <NodeWrapper>
       <CaretWrapper>
-        {childIds && <Caret onClick={handleClick} expanded={expanded} />}
+        {childIds && <Caret onClick={() => toggle(namespace, id, expanded)} expanded={expanded} />}
       </CaretWrapper>
       <StyledContent data={data} />
     </NodeWrapper>
@@ -60,8 +58,9 @@ export const TreeNode: SFC<TreeNodeProps> = ({ context, path, data, Content, exp
       {renderNode()}
       {childIds && expanded &&
         <TreeView
-          context={context}
-          path={path}
+          namespace={namespace}
+          parentId={id}
+          depth={depth + 1}
           nodeIds={childIds}
           NodeContent={Content}
         />

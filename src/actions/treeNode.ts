@@ -1,17 +1,15 @@
 import { createActions } from 'redux-actions';
 
 export interface TreeNodeActionPayload {
-  route: {
-    context: string[];
-    nodeId: string;
-  };
-  expanded: boolean;
+  namespace: string;
+  nodeId: string;
+  expanded?: boolean;
 }
 
 export const { toggle, expand, collapse } = createActions<TreeNodeActionPayload>({
-  TOGGLE: (route, expanded) => ({ route, expanded: !expanded }),
-  EXPAND: (route, expanded) => ({ route, expanded }),
-  COLLAPSE: (route, expanded) => ({ route, expanded })
+  TOGGLE: (namespace, nodeId, expanded) => ({ namespace, nodeId, expanded: !expanded }),
+  EXPAND: (namespace, nodeId) => ({ namespace, nodeId }),
+  COLLAPSE: (namespace, nodeId) => ({ namespace, nodeId }),
 });
 
 export default {

@@ -8,7 +8,7 @@ export interface TreeViewState {
 
 export default handleActions({
   [combineActions(toggle, expand, collapse)](state: TreeViewState, action: Action<TreeNodeActionPayload>) {
-    const { nodeId } = action.payload.route;
+    const { nodeId } = action.payload;
     return {
       ...state,
       [nodeId]: treeNode(state[nodeId], action)

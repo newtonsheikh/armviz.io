@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { ComponentClass, SFC } from 'react';
 import styled from 'styled-components';
 import TreeNode from '../../containers/shared/TreeNode';
@@ -10,19 +9,22 @@ const List = styled.ul`
 `;
 
 export interface TreeViewProps {
-  context: string[];
-  path?: string[];
+  namespace: string;
+  parentId?: string;
+  depth?: number;
   nodeIds: string[];
   NodeContent: ComponentClass<{data: any}>;
 }
 
-export const TreeView: SFC<TreeViewProps> = ({ context, path, nodeIds, NodeContent }) => (
+export const TreeView: SFC<TreeViewProps> = ({ namespace, parentId, depth, nodeIds, NodeContent }) => (
   <List>
     {nodeIds.map(nodeId => (
       <TreeNode
         key={nodeId}
-        context={context}
-        path={path ? _.concat(path, nodeId) : [nodeId]}
+        id={nodeId}
+        parentId={parentId}
+        depth={depth ? depth : 0}
+        namespace={namespace}
         Content={NodeContent}
       />
     ))}

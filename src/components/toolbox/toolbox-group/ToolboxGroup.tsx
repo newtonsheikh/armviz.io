@@ -1,11 +1,7 @@
 import React, { SFC } from 'react';
 import { Collapse } from '../../shared/collapse/index';
 import { TreeView } from '../../shared/tree-view';
-// import { ToolboxItem } from '../toolbox-item/index';
-
-const ToolboxItem: SFC<{ data: string; className: string }> = ({ className }) => (
-  <div className={className}>foobar</div>
-);
+import { ToolboxItem } from '../toolbox-item/index';
 
 export interface ToolboxGroupProps {
   name: string;

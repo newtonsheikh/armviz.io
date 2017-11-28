@@ -1,4 +1,5 @@
-import React, { SFC } from 'react';
+import React, { Component } from 'react';
+import { dndContext } from '../../constants';
 import { ToolboxGroup } from './toolbox-group/ToolboxGroup';
 
 export interface ToolboxProps {
@@ -12,12 +13,17 @@ export interface ToolboxProps {
   }>;
 }
 
-export const Toolbox: SFC<ToolboxProps> = ({ filter, groups }) => {
-  return (
-    <div>
-      {groups.map(({ name, rootIds }) => (
-        <ToolboxGroup key={'toolbox.' + name} name={name} rootIds={rootIds} />
-      ))}
-    </div>
-  );
-};
+class Toolbox extends Component<ToolboxProps>  {
+  render() {
+    const { groups } = this.props;
+    return (
+      <div>
+        {groups.map(({ name, rootIds }) => (
+          <ToolboxGroup key={'toolbox.' + name} name={name} rootIds={rootIds} />
+        ))}
+      </div>
+    );
+  }
+}
+
+export default dndContext(Toolbox);

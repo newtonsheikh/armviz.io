@@ -67,5 +67,10 @@ export const rootState: RootState = {
         resourceName: 'Subnet'
       }
     }
+  },
+  toolboxGroups: {
+    Compute: {
+      expanded: true
+    }
   }
 };

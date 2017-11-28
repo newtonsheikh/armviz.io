@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 
 export interface CollapseActionPayload {
-  namespace: string;
+  namespace: string[];
   collapseId: string;
   expanded?: boolean;
 }

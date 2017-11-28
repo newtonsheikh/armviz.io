@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 
 export interface TreeNodeActionPayload {
-  namespace: string;
+  namespace: string[];
   nodeId: string;
   expanded?: boolean;
 }

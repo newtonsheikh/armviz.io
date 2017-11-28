@@ -1,76 +1,70 @@
 import { RootState } from '../components/app';
 
 export const rootState: RootState = {
-  toolboxItems: {
-    1: {
-      id: '1',
-      data: {
-        resourceName: 'Compute'
-      },
-      expanded: true,
-      childIds: ['2', '3']
+  toolbox: {
+    filter: {
+      category: 'All',
+      text: ''
     },
-    2: {
-      id: '2',
-      data: {
-        resourceName: 'Parent Resource'
-      },
-      childIds: ['4', '7', '8']
-    },
-    3: {
-      id: '3',
-      data: {
-        resourceName: 'Virtual Machine'
+    groups: {
+      Compute: {
+        rootIds: ['1', '2', '3', '4', '5', '7'],
+        expanded: true,
+        items: {
+          1: {
+            id: '1',
+            data: {
+              resourceName: 'Availability Sets'
+            }
+          },
+          2: {
+            id: '2',
+            data: {
+              resourceName: 'Disks'
+            }
+          },
+          3: {
+            id: '3',
+            data: {
+              resourceName: 'Images'
+            }
+          },
+          4: {
+            id: '4',
+            data: {
+              resourceName: 'Snapshots'
+            }
+          },
+          5: {
+            id: '5',
+            data: {
+              resourceName: 'Virtual Machines'
+            },
+            childIds: ['6'],
+            expanded: false
+          },
+          6: {
+            id: '6',
+            data: {
+              resourceName: 'Extensions'
+            }
+          },
+          7: {
+            id: '7',
+            data: {
+              resourceName: 'Virtual Machine Scale Sets'
+            },
+            childIds: ['8'],
+            expanded: false
+          },
+          8: {
+            id: '8',
+            data: {
+              resourceName: 'Extensions'
+            }
+          }
+        }
       }
-    },
-    4: {
-      id: '4',
-      data: {
-        resourceName: 'Child Resource 1'
-      }
-    },
-    7: {
-      id: '7',
-      data: {
-        resourceName: 'Child Resource 2'
-      }
-    },
-    8: {
-      id: '8',
-      data: {
-        resourceName: 'Child Resource 3'
-      },
-      childIds: ['9', '10']
-    },
-    9: {
-      id: '9',
-      data: {
-        resourceName: 'Child Resource 3.1'
-      }
-    },
-    10: {
-      id: '10',
-      data: {
-        resourceName: 'Child Resource 3.2'
-      }
-    },
-    5: {
-      id: '5',
-      data: {
-        resourceName: 'Networks'
-      },
-      childIds: ['6']
-    },
-    6: {
-      id: '6',
-      data: {
-        resourceName: 'Subnet'
-      }
-    }
-  },
-  toolboxGroups: {
-    Compute: {
-      expanded: true
     }
   }
 };

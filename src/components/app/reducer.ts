@@ -1,19 +1,17 @@
 import { combineReducers } from 'redux';
-import { CollapseState } from '../shared/collapse';
-import { collapseReducer as Compute } from '../shared/collapse';
-import { TreeViewState } from '../shared/tree-view';
-import { treeViewReducer as toolboxItems } from '../shared/tree-view';
+// import { CollapseState } from '../shared/collapse';
+// import { TreeViewState } from '../shared/tree-view';
+import { toolboxReducer as toolbox } from '../toolbox';
+import { ToolboxState } from '../toolbox/reducer';
 
 export interface RootState {
-  toolboxItems: TreeViewState;
-  toolboxGroups: {
-    Compute: CollapseState;
-  };
+  toolbox: ToolboxState;
+  // toolboxItems: TreeViewState;
+  // toolboxGroups: {
+  //   Compute: CollapseState;
+  // };
 }
 
 export default combineReducers({
-  toolboxItems,
-  toolboxGroups: combineReducers({
-    Compute
-  })
+  toolbox
 });

@@ -6,14 +6,14 @@ export interface CollapseActionPayload {
   expanded?: boolean;
 }
 
-export const { toggle, expand, collapse } = createActions<CollapseActionPayload>({
-  TOGGLE: (namespace, collapseId, expanded) => ({ namespace, collapseId, expanded: !expanded }),
-  EXPAND: (namespace, collapseId) => ({ namespace, collapseId }),
-  COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId })
+export const { toggleCollapse, openCollapse, closeCollapse } = createActions<CollapseActionPayload>({
+  TOGGLE_COLLAPSE: (namespace, collapseId, expanded) => ({ namespace, collapseId, expanded: !expanded }),
+  OPEN_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId }),
+  CLOSE_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId })
 });
 
 export default {
-  toggle,
-  expand,
-  collapse
+  toggleCollapse,
+  openCollapse,
+  closeCollapse
 };

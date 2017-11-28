@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { RootState } from '../../app';
-import { toggle } from './actions';
+import { toggleCollapse as toggle } from './actions';
 import { Collapse, CollapseProps } from './Collapse';
 import { getCollapse } from './selectors';
 

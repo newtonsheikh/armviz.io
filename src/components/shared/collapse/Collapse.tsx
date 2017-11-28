@@ -22,11 +22,11 @@ const CaretWrapper = styled.div`
 `;
 
 export interface CollapseProps {
-  namespace: string;
+  namespace: string[];
   id: string;
   title: string;
   expanded: boolean;
-  toggle: (namespace: string, collapseId: string, expanded: boolean) => any;
+  toggle: (namespace: string[], collapseId: string, expanded: boolean) => any;
 }
 
 export const Collapse: SFC<CollapseProps> = ({ namespace, id, title, expanded, toggle, children }) => (

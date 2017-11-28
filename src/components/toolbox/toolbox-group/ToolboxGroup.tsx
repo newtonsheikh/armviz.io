@@ -9,9 +9,9 @@ export interface ToolboxGroupProps {
 }
 
 export const ToolboxGroup: SFC<ToolboxGroupProps> = ({ name, rootIds }) => (
-  <Collapse namespace={'toolbox.groupsByName'} id={name} title={name}>
+  <Collapse namespace={['toolbox', 'groups']} id={name} title={name}>
     <TreeView
-      namespace={'toolbox.groupsByName.' + name + '.itemsById'}
+      namespace={['toolbox', 'groups', name, 'items']}
       nodeIds={rootIds}
       NodeContent={ToolboxItem}
     />

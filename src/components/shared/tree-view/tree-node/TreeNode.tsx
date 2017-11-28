@@ -18,7 +18,7 @@ const ListItem = styled.li`
 `;
 
 export interface TreeNodeProps {
-  namespace: string;
+  namespace: string[];
   id: string;
   parentId?: string;
   depth: number;
@@ -26,7 +26,7 @@ export interface TreeNodeProps {
   Content: ComponentType<{ data: any }>;
   expanded?: boolean;
   childIds?: string[];
-  toggle: (namespace: string, nodeId: string, expanded: boolean) => any;
+  toggle: (namespace: string[], nodeId: string, expanded: boolean) => any;
 }
 
 export const TreeNode: SFC<TreeNodeProps> = ({

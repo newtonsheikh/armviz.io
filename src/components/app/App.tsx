@@ -11,8 +11,8 @@ const ToolboxItem: SFC<{ data: string; className: string }> = ({ className }) =>
 const App: SFC = () => (
   <Provider store={store}>
     <div>
-      <TreeView namespace={'toolboxItems'} nodeIds={['1', '5']} NodeContent={ToolboxItem} />
-      <Collapse namespace={'toolboxGroups'} id={'Compute'} title={'Test'}>
+      <TreeView namespace={['toolboxItems']} nodeIds={['1', '5']} NodeContent={ToolboxItem} />
+      <Collapse namespace={['toolboxGroups']} id={'Compute'} title={'Test'}>
         <div>Some Content</div>
       </Collapse>
     </div>

@@ -9,7 +9,7 @@ const List = styled.ul`
 `;
 
 export interface TreeViewProps {
-  namespace: string;
+  namespace: string[];
   parentId?: string;
   depth?: number;
   nodeIds: string[];

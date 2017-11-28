@@ -16,7 +16,7 @@ export const Toolbox: SFC<ToolboxProps> = ({ filter, groups }) => {
   return (
     <div>
       {groups.map(({ name, rootIds }) => (
-        <ToolboxGroup key={name} name={name} rootIds={rootIds} />
+        <ToolboxGroup key={'toolbox.' + name} name={name} rootIds={rootIds} />
       ))}
     </div>
   );

@@ -34,14 +34,14 @@ export const TreeNode: SFC<TreeNodeProps> = ({
 }) => {
   const CaretWrapper = styled.div`
     position: absolute;
-    left: ${depth * 12 + 3 + 'px'};
+    left: ${depth * 12 + 6 + 'px'};
     height: 100%;
     cursor: pointer;
   `;
 
   const StyledContent = styled(Content as any) `
-    padding: 3px 0;
-    padding-left: ${depth * 12 + 18 + 'px'};
+    padding: 6px 0;
+    padding-left: ${depth * 12 + 24 + 'px'};
   `;
 
   const renderNode = () => (

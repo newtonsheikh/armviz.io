@@ -1,8 +1,8 @@
-import React, { SFC } from 'react';
+import React, { Component } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
 const template =
-`{
+  `{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -261,11 +261,18 @@ const template =
 }
 `;
 
-const Editor: SFC = () => (
-  <MonacoEditor
-    language="json"
-    value={template}
-  />
-);
-
-export default Editor;
+export default class Editor extends Component {
+  render() {
+    const options = {
+      folding: true,
+      automaticLayout: true
+    };
+    return (
+      <MonacoEditor
+        language="json"
+        options={options}
+        value={template}
+      />
+    );
+  }
+};

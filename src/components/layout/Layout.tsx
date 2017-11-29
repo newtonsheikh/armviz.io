@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component, ComponentType } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, Store } from 'react-redux';
+import { Editor } from '../editor';
 import { Toolbox } from '../toolbox';
 
 import 'golden-layout/src/css/goldenlayout-base.css';
@@ -51,9 +52,9 @@ export default class Layout extends Component {
             componentName: 'canvas',
             height: 60
           }, {
-            type: 'component',
+            type: 'react-component',
             title: 'Editor',
-            componentName: 'editor'
+            component: 'editor'
           }]
         }]
       }]
@@ -61,7 +62,7 @@ export default class Layout extends Component {
 
     layout.registerComponent('toolbox', withStore(Toolbox, this.context.store));
     layout.registerComponent('canvas', () => {/**/});
-    layout.registerComponent('editor', () => {/**/});
+    layout.registerComponent('editor', Editor);
     layout.init();
 
     window.addEventListener('resize', () => { layout.updateSize(); });

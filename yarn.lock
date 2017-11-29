@@ -37,6 +37,13 @@
     "@types/node" "*"
     "@types/react" "*"
 
+"@types/react-monaco-editor@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@types/react-monaco-editor/-/react-monaco-editor-0.10.0.tgz#6af8b90ef1904b9a82180c786dc22d7d100943c5"
+  dependencies:
+    "@types/react" "*"
+    monaco-editor "^0.10.0"
+
 "@types/react-redux@^5.0.11":
   version "5.0.11"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.11.tgz#287ba4d9352af95595afd65348c9b04768268233"
@@ -3465,6 +3472,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
+monaco-editor@^0.10.0:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.10.1.tgz#8c96c4f15b6b5258bf92cbde93cad8a7e3007e14"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -4446,6 +4457,13 @@ react-error-overlay@^2.0.2:
     react-dom "^15 || ^16"
     settle-promise "1.0.0"
     source-map "0.5.6"
+
+react-monaco-editor@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/react-monaco-editor/-/react-monaco-editor-0.12.0.tgz#d96fbb07eb743eb4ad10b69d80f9985416f1a266"
+  dependencies:
+    monaco-editor "^0.10.0"
+    prop-types "^15.5.10"
 
 react-redux@^5.0.6:
   version "5.0.6"

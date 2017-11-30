@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
-import { editorReducer as editor } from '../editor';
-import { toolboxReducer as toolbox } from '../toolbox';
-import { ToolboxState } from '../toolbox/reducer';
+import { canvasReducer as canvas, CanvasState } from '../canvas';
+import { editorReducer as editor, EditorState } from '../editor';
+import { toolboxReducer as toolbox, ToolboxState } from '../toolbox';
 
 export interface RootState {
   toolbox: ToolboxState;
-  editor: {
-    templateJson: string;
-  };
+  canvas: CanvasState;
+  editor: EditorState;
 }
 
 export default combineReducers({
   toolbox,
+  canvas,
   editor
 });

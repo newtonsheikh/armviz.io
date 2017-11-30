@@ -67,6 +67,9 @@ export const rootState: RootState = {
       }
     }
   },
+  canvas: {
+    elements: []
+  },
   editor: {
     templateJson: [
       '{',

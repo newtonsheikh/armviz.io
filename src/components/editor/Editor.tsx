@@ -21,9 +21,10 @@ export default class Editor extends Component<EditorProps> {
   render() {
     const { editorWillMount } = this;
     const { content, onChange } = this.props;
-    const options = {
+    const options: monaco.editor.IEditorOptions = {
       folding: true,
-      fixedOverflowWidgets: true
+      fixedOverflowWidgets: true,
+      automaticLayout: true
     };
     return (
       <MonacoEditor

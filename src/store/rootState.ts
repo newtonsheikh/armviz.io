@@ -75,7 +75,7 @@ export const rootState: RootState = {
       '  "parameters": {},',
       '  "variables": {},',
       '  "resources": [],',
-      '  "output": {},',
+      '  "output": {}',
       '}'
     ].join('\n')
   }

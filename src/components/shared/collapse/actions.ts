@@ -8,8 +8,8 @@ export interface CollapseActionPayload {
 
 export const { toggleCollapse, openCollapse, closeCollapse } = createActions<CollapseActionPayload>({
   TOGGLE_COLLAPSE: (namespace, collapseId, expanded) => ({ namespace, collapseId, expanded: !expanded }),
-  OPEN_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId }),
-  CLOSE_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId })
+  OPEN_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId, expanded: true }),
+  CLOSE_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId, expanded: false })
 });
 
 export default {

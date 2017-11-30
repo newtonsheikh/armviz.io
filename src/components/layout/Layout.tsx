@@ -66,7 +66,7 @@ export default class Layout extends Component {
 
     layout.registerComponent('toolbox', withStore(Toolbox, this.context.store));
     layout.registerComponent('canvas', () => {/**/ });
-    layout.registerComponent('editor', Editor);
+    layout.registerComponent('editor', withStore(Editor, this.context.store));
     layout.init();
 
     window.addEventListener('resize', () => { layout.updateSize(); });

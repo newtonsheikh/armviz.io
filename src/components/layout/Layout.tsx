@@ -37,6 +37,10 @@ export default class Layout extends Component {
     }
 
     const layout = new GoldenLayout({
+      dimensions: {
+        minItemHeight: 30,
+        minItemWidth: 180,
+      },
       content: [{
         type: 'row',
         content: [{
@@ -61,7 +65,7 @@ export default class Layout extends Component {
     }, this._layoutDiv);
 
     layout.registerComponent('toolbox', withStore(Toolbox, this.context.store));
-    layout.registerComponent('canvas', () => {/**/});
+    layout.registerComponent('canvas', () => {/**/ });
     layout.registerComponent('editor', Editor);
     layout.init();
 

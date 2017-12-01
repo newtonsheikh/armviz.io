@@ -8,6 +8,8 @@ export interface EditorProps {
 }
 
 export default class Editor extends Component<EditorProps> {
+  shouldComponentUpdate() { return false; }
+
   editorWillMount() {
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       schemas: [{

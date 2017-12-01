@@ -5,16 +5,14 @@ import { CollapseActionPayload, collapseReducer } from '../shared/collapse/index
 import { treeViewReducer } from '../shared/tree-view';
 import { collapseNode, expandNode, toggleNode, TreeNodeActionPayload } from '../shared/tree-view/index';
 import { ToolboxGroupState } from './toolbox-group/index';
+import { FilterState, filter } from './filter/reducer'
 
 export interface ToolboxGroupsState {
   [name: string]: ToolboxGroupState;
 }
 
 export interface ToolboxState {
-  filter: {
-    category: string;
-    text: string;
-  };
+  filter: FilterState;
   groups: ToolboxGroupsState;
 }
 
@@ -57,7 +55,6 @@ const groups = handleActions({
 }, {});
 
 export default combineReducers({
-  // TODO: filter reducer
-  filter: null,
+  filter,
   groups,
 });

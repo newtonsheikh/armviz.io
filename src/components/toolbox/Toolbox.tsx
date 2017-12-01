@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { dndContext } from '../../constants';
-import { ToolboxGroup } from './toolbox-group/ToolboxGroup';
 import { Filter } from './filter/index';
+import { ToolboxGroup } from './toolbox-group/ToolboxGroup';
 
 export interface ToolboxProps {
   filter: {

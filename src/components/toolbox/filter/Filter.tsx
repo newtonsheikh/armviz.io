@@ -4,22 +4,22 @@ export interface FilterProps {
     category: string;
     text: string;
     categories: string[];
-    filter: (category: string, text: string) => any;    
+    filter: (category: string, text: string) => any;
 }
 
 export class Filter extends Component<FilterProps> {
     constructor(props: any) {
         super(props);
-        this.handleSelectChange= this.handleSelectChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
-    handleInputChange(e: ChangeEvent<HTMLInputElement>){
-
+    handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+        // TODO: To implement text search
     }
-    handleSelectChange(e: ChangeEvent<HTMLSelectElement>){
+    handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
         this.props.filter(e.target.value, '');
     }
-    render(){
+    render() {
         return(
             <div>
             <select  onChange={this.handleSelectChange}>

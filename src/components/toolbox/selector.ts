@@ -3,7 +3,7 @@ import { RootState } from '../app';
 
 export const getToolbox = (state: RootState) => {
   const { filter, groups } = state.toolbox;
-  if (filter.category == 'All') {
+  if (filter.category === 'All') {
     const groupsProp = _.keys(groups).map(groupName => ({
       name: groupName,
       rootIds: groups[groupName].rootIds
@@ -13,13 +13,11 @@ export const getToolbox = (state: RootState) => {
       groups: groupsProp
     };
   }
-  else {
-    return {
-      filter,
-      groups: [{
-        name: filter.category,
-        rootIds: groups[filter.category].rootIds
-      }]
-    }
-  }
+  return {
+    filter,
+    groups: [{
+      name: filter.category,
+      rootIds: groups[filter.category].rootIds
+    }]
+  };
 };

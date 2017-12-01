@@ -5,7 +5,7 @@ export interface FilterState {
    category: string;
    text: string;
 }
-  
+
 export const filter = handleActions({
     [combineActions(
         filterByCategory
@@ -13,10 +13,10 @@ export const filter = handleActions({
       const { category, text } = action.payload;
 
       const newState = {
-        category: category,
-        text: text
+        category,
+        text
       };
-  
+
       return newState;
     }
   }, {});

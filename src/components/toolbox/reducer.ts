@@ -4,8 +4,8 @@ import { closeCollapse, openCollapse, toggleCollapse } from '../shared/collapse/
 import { CollapseActionPayload, collapseReducer } from '../shared/collapse/index';
 import { treeViewReducer } from '../shared/tree-view';
 import { collapseNode, expandNode, toggleNode, TreeNodeActionPayload } from '../shared/tree-view/index';
+import { filter, FilterState } from './filter/reducer';
 import { ToolboxGroupState } from './toolbox-group/index';
-import { FilterState, filter } from './filter/reducer'
 
 export interface ToolboxGroupsState {
   [name: string]: ToolboxGroupState;

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { RootState } from '../../app/index';
-import { getFilter } from './selectors';
-import { Filter } from './Filter';
 import { filterByCategory as filter } from './actions';
+import { Filter } from './Filter';
+import { getFilter } from './selectors';
 
 const mapStateToProps = (state: RootState) => getFilter(state);
 

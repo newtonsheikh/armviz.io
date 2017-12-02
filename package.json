@@ -11,6 +11,7 @@
     "start": "react-scripts-ts start"
   },
   "devDependencies": {
+    "@types/cytoscape": "^3.1.4",
     "@types/jquery": "^3.2.16",
     "@types/lodash": "^4.14.82",
     "@types/prop-types": "^15.5.2",
@@ -25,7 +26,6 @@
     "react-scripts-ts": "^2.8.0"
   },
   "dependencies": {
-    "@types/cytoscape": "^3.1.4",
     "cytoscape": "^3.2.6",
     "golden-layout": "^1.5.9",
     "jquery": "^3.2.1",

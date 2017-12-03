@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 import React, {ChangeEvent, Component} from 'react';
 
 export interface FilterProps {
@@ -16,6 +16,7 @@ export class Filter extends Component<FilterProps> {
     }
     handleInputChange(e: ChangeEvent<HTMLInputElement>) {
         // TODO: Why doesn't select menu state get updated to All?
+        // TODO: Target input by id
         this.props.filter('All', e.target.value);
     }
     handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -29,7 +30,7 @@ export class Filter extends Component<FilterProps> {
                     <option value={name}>{name}</option>
                 ))}
             </select>
-            <input type="text" placeholder="Search" onChange={_.debounce(this.handleInputChange, 200)} />
+            <input type="text" placeholder="Search" onChange={this.handleInputChange} />
             </div>
         );
     }

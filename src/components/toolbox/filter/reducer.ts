@@ -1,5 +1,5 @@
 import { Action, combineActions, handleActions } from 'redux-actions';
-import { FilterActionPayload, filterByCategory } from './actions';
+import { FilterActionPayload, filterByCategory, filterByText } from './actions';
 
 export interface FilterState {
    category: string;
@@ -8,7 +8,8 @@ export interface FilterState {
 
 export const filter = handleActions({
     [combineActions(
-        filterByCategory
+        filterByCategory,
+        filterByText
     )]: (state: FilterState, action: Action<FilterActionPayload>) => {
       const { category, text } = action.payload;
 

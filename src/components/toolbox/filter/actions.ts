@@ -5,10 +5,12 @@ export interface FilterActionPayload {
     text: string;
 }
 
-export const { filterByCategory } = createActions<FilterActionPayload>({
-    FILTER_BY_CATEGORY: (category, text) => ({category, text})
+export const { filterByCategory, filterByText } = createActions<FilterActionPayload>({
+    FILTER_BY_CATEGORY: (category, text) => ({category, text}),
+    FILTER_BY_TEXT: (category, text) => ({category, text})
 });
 
 export default {
-    filterByCategory
+    filterByCategory,
+    filterByText
 };

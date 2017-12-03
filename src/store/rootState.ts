@@ -8,7 +8,7 @@ export const rootState: RootState = {
     },
     groups: {
       Compute: {
-        rootIds: ['1', '2', '3', '4', '5', '7'],
+        rootIds: ['1', '2', '3', '4', '5', '7', '9'],
         expanded: true,
         items: {
           1: {
@@ -61,6 +61,12 @@ export const rootState: RootState = {
             id: '8',
             data: {
               resourceName: 'Extensions'
+            }
+          },
+          9: {
+            id: '9',
+            data: {
+              resourceName: 'App Service'
             }
           }
         }

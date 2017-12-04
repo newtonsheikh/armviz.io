@@ -2,6 +2,7 @@ import cytoscape, { ElementDefinition, Position } from 'cytoscape';
 import React, { Component, ReactInstance } from 'react';
 import { ConnectDropTarget, DropTarget, DropTargetCollector, DropTargetSpec } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
+import Measure from 'react-measure';
 import styled from 'styled-components';
 import { TOOLBOX_ITEM } from '../../constants/index';
 import { ToolboxItemData } from '../toolbox/index';
@@ -33,6 +34,7 @@ class Canvas extends Component<CanvasProps> {
   componentDidMount() {
     this.cy = cytoscape({
       container: this.cyContainer,
+      elements: this.props.elements,
       style: [
         {
           selector: 'node',
@@ -84,12 +86,16 @@ class Canvas extends Component<CanvasProps> {
   render() {
     const { connectDropTarget } = this.props;
     return (
-      <DropLayer
-        className={'canvas'}
-        ref={(instance: ReactInstance) => connectDropTarget(findDOMNode(instance) as any)}
-      >
-        <CyContainer innerRef={el => this.cyContainer = el} />
-      </DropLayer>
+      <Measure onResize={() => this.cy.resize()}>
+        {({ measureRef }) =>
+          <DropLayer
+            className={'canvas'}
+            ref={(instance: ReactInstance) => connectDropTarget(findDOMNode(instance) as any)}
+            innerRef={measureRef}
+          >
+            <CyContainer innerRef={el => this.cyContainer = el} />
+          </DropLayer>}
+      </Measure>
     );
   }
 }

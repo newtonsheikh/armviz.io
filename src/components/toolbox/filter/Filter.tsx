@@ -27,7 +27,7 @@ export class Filter extends Component<FilterProps> {
             <div>
             <select  onChange={this.handleSelectChange}>
                 {this.props.categories.map(name => (
-                    <option value={name}>{name}</option>
+                    <option key={'toolbox' + name} value={name}>{name}</option>
                 ))}
             </select>
             <input type="text" placeholder="Search" onChange={this.handleInputChange} />

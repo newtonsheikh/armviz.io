@@ -10,10 +10,10 @@ export const getToolbox = (state: RootState) => {
       const rootIds = groups[groupName].rootIds;
       const newRootIds = [];
       let match = false;
-      for (let i = 0; i < rootIds.length; i++) {
-        const resourceName = groups[groupName].items[rootIds[i]].data.resourceName;
+      for (const rootId of rootIds) {
+        const resourceName = groups[groupName].items[rootId].data.resourceName;
         if (_.includes(_.toLower(resourceName), _.toLower(filter.text))) {
-          newRootIds.push(rootIds[i]);
+          newRootIds.push(rootId);
           match = true;
         }
       }

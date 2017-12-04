@@ -1,9 +1,13 @@
 import React, { SFC } from 'react';
 import { ConnectDragSource, DragSource, DragSourceCollector, DragSourceSpec } from 'react-dnd';
-import { TOOLBOX_ITEM } from '../../../constants';
+import { dndContext, TOOLBOX_ITEM } from '../../../constants';
 
-export interface ToolboxItemProps {
-  data: { resourceName: string };
+export interface ToolboxItemData {
+  resourceName: string;
+}
+
+interface ToolboxItemProps {
+  data: ToolboxItemData;
   className: string;
   connectDragSource: ConnectDragSource;
 }
@@ -24,4 +28,6 @@ const collect: DragSourceCollector = (connect, monitor) => ({
   connectDragSource: connect.dragSource()
 });
 
-export default DragSource<ToolboxItemProps>(TOOLBOX_ITEM, toolboxSource, collect)(ToolboxItem);
+export default dndContext(
+  DragSource<ToolboxItemProps>(TOOLBOX_ITEM, toolboxSource, collect)(ToolboxItem)
+);

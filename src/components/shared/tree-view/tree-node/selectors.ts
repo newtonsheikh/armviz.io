@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { RootState } from '../../../app';
 import { TreeNodeState } from './reducer';
 

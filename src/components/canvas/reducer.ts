@@ -1,5 +1,6 @@
 import { ElementDefinition } from 'cytoscape';
 import { Action, handleAction } from 'redux-actions';
+import uuidv4 from 'uuid/v4';
 import { addNode, AddNodeActionPayload } from './actions';
 
 export interface CanvasState {
@@ -13,7 +14,7 @@ export default handleAction(addNode, (state: CanvasState, action: Action<AddNode
     elements: [
       ...state.elements,
       {
-        data: { label: data.resourceName },
+        data: { id: uuidv4(), label: data.resourceName },
         renderedPosition
       }
     ]

@@ -34,7 +34,6 @@ class Canvas extends Component<CanvasProps> {
   componentDidMount() {
     this.cy = cytoscape({
       container: this.cyContainer,
-      elements: this.props.elements,
       style: [
         {
           selector: 'node',
@@ -80,7 +79,6 @@ class Canvas extends Component<CanvasProps> {
 
   componentWillReceiveProps(nextProps: CanvasProps) {
     (this.cy as any).json({ elements: nextProps.elements });
-    (this.cy as any).json({ elements: nextProps.elements });
   }
 
   render() {
@@ -108,8 +106,6 @@ const toolboxItemTarget: DropTargetSpec<CanvasProps> = ({
       x: clientOffset.x - componentRect.left,
       y: clientOffset.y - componentRect.top
     };
-    // tslint:disable-next-line:no-console
-    console.log(position);
     component.props.addNode(monitor.getItem() as ToolboxItemData, position);
   }
 });

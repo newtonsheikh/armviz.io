@@ -8,6 +8,8 @@ export interface EditorProps {
 }
 
 export default class Editor extends Component<EditorProps> {
+  editor: monaco.editor.ICodeEditor;
+
   shouldComponentUpdate() { return false; }
 
   editorWillMount() {
@@ -20,13 +22,22 @@ export default class Editor extends Component<EditorProps> {
     });
   }
 
+  componentWillReceiveProps(nextProps: EditorProps) {
+    const { editor } = this;
+    if (nextProps.content !== editor.getValue()) {
+      editor.setValue(nextProps.content);
+    }
+  }
+
   render() {
     const { editorWillMount } = this;
     const { content, onChange } = this.props;
     const options: monaco.editor.IEditorOptions = {
       folding: true,
       fixedOverflowWidgets: true,
-      automaticLayout: true
+      automaticLayout: true,
+      formatOnType: true,
+      formatOnPaste: true
     };
     return (
       <MonacoEditor
@@ -35,6 +46,7 @@ export default class Editor extends Component<EditorProps> {
         value={content}
         onChange={_.debounce(onChange, 100)}
         editorWillMount={editorWillMount}
+        editorDidMount={editor => this.editor = editor}
       />
     );
   }

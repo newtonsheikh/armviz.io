@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { Action, combineActions, handleActions } from 'redux-actions';
-import { closeCollapse, openCollapse, toggleCollapse } from '../shared/collapse/actions';
-import { CollapseActionPayload, collapseReducer } from '../shared/collapse/index';
-import { treeViewReducer } from '../shared/tree-view';
-import { collapseNode, expandNode, toggleNode, TreeNodeActionPayload } from '../shared/tree-view/index';
+import { TREE_NODE_COLLAPSE, TREE_NODE_EXPAND, TREE_NODE_TOGGLE } from '../../constants';
+import { COLLAPSE_CLOSE, COLLAPSE_OPEN, COLLAPSE_TOGGLE } from '../../constants';
+import { CollapseActionPayload, collapseReducer } from '../shared/collapse';
+import { TreeNodeActionPayload, treeViewReducer } from '../shared/tree-view';
 import { filter, FilterState } from './filter/reducer';
-import { ToolboxGroupState } from './toolbox-group/index';
+import { ToolboxGroupState } from './toolbox-group';
 
 export interface ToolboxGroupsState {
   [name: string]: ToolboxGroupState;
@@ -18,9 +18,9 @@ export interface ToolboxState {
 
 const groups = handleActions({
   [combineActions(
-    toggleNode,
-    expandNode,
-    collapseNode
+    TREE_NODE_TOGGLE,
+    TREE_NODE_EXPAND,
+    TREE_NODE_COLLAPSE
   )]: (state: ToolboxGroupsState, action: Action<TreeNodeActionPayload>) => {
     const { namespace } = action.payload;
     if (namespace[0] !== 'toolbox') { return state; }
@@ -38,9 +38,9 @@ const groups = handleActions({
   },
 
   [combineActions(
-    toggleCollapse,
-    openCollapse,
-    closeCollapse
+    COLLAPSE_TOGGLE,
+    COLLAPSE_OPEN,
+    COLLAPSE_CLOSE
   )]: (state: ToolboxGroupsState, action: Action<CollapseActionPayload>) => {
     const { namespace, collapseId } = action.payload;
     if (namespace[0] !== 'toolbox') { return state; }

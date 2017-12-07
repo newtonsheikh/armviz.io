@@ -1,17 +1,18 @@
 import { Action, combineActions, handleActions } from 'redux-actions';
-import { closeCollapse, CollapseActionPayload, openCollapse, toggleCollapse } from './actions';
+import { COLLAPSE_CLOSE, COLLAPSE_OPEN, COLLAPSE_TOGGLE } from '../../../constants';
+import { CollapseActionPayload } from './actions';
 
 export interface CollapseState {
-  expanded?: boolean;
+  isOpen?: boolean;
 }
 
 export default handleActions({
   [combineActions(
-    toggleCollapse,
-    openCollapse,
-    closeCollapse
-  )](state: CollapseState, action: Action<CollapseActionPayload>) {
-    const { expanded } = action.payload;
-    return { ...state, expanded };
-  }
+    COLLAPSE_TOGGLE,
+    COLLAPSE_OPEN,
+    COLLAPSE_CLOSE
+  )]: (state: CollapseState, action: Action<CollapseActionPayload>) => ({
+    ...state,
+    isOpen: action.payload.isOpen
+  })
 }, {});

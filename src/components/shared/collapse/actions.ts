@@ -1,19 +1,20 @@
 import { createActions } from 'redux-actions';
+import { COLLAPSE_CLOSE, COLLAPSE_OPEN, COLLAPSE_TOGGLE } from '../../../constants';
 
 export interface CollapseActionPayload {
   namespace: string[];
   collapseId: string;
-  expanded?: boolean;
+  isOpen: boolean;
 }
 
 export const { toggleCollapse, openCollapse, closeCollapse } = createActions<CollapseActionPayload>({
-  TOGGLE_COLLAPSE: (namespace, collapseId, expanded) => ({ namespace, collapseId, expanded: !expanded }),
-  OPEN_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId, expanded: true }),
-  CLOSE_COLLAPSE: (namespace, collapseId) => ({ namespace, collapseId, expanded: false })
+  [COLLAPSE_TOGGLE]: (namespace, collapseId, isOpen) => ({ namespace, collapseId, isOpen: !isOpen }),
+  [COLLAPSE_OPEN]: (namespace, collapseId) => ({ namespace, collapseId, isOpen: true }),
+  [COLLAPSE_CLOSE]: (namespace, collapseId) => ({ namespace, collapseId, isOpen: false })
 });
 
 export default {
-  toggleCollapse,
+  COLLAPSE_TOGGLE,
   openCollapse,
   closeCollapse
 };

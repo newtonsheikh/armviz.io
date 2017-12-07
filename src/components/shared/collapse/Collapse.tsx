@@ -25,20 +25,20 @@ export interface CollapseProps {
   namespace: string[];
   id: string;
   title: string;
-  expanded: boolean;
+  isOpen: boolean;
   toggle: (namespace: string[], collapseId: string, expanded: boolean) => any;
 }
 
-export const Collapse: SFC<CollapseProps> = ({ namespace, id, title, expanded, toggle, children }) => (
+export const Collapse: SFC<CollapseProps> = ({ namespace, id, title, isOpen, toggle, children }) => (
   <div>
-    <HeaderWrapper onClick={() => toggle(namespace, id, expanded)}>
+    <HeaderWrapper onClick={() => toggle(namespace, id, isOpen)}>
       <CaretWrapper>
-        <Caret expanded={expanded} />
+        <Caret expanded={isOpen} />
       </CaretWrapper>
       <Title>
         {title}
       </Title>
     </HeaderWrapper>
-    {expanded && children}
+    {isOpen && children}
   </div>
 );

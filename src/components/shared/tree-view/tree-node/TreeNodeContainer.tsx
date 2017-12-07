@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { AppState } from '../../../app';
-import { toggleNode as toggle } from './actions';
+import { toggleTreeNode as toggle } from './actions';
 import { getTreeNode } from './selectors';
 import { TreeNode, TreeNodeProps } from './TreeNode';
 

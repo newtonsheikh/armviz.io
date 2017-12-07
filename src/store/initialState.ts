@@ -97,7 +97,7 @@ export const initialState: AppState = {
       },
       Network: {
         rootIds: ['1', '2', '3', '4', '5', '7'],
-        expanded: false,
+        isOpen: false,
         items: {
           1: {
             id: '1',
@@ -155,7 +155,7 @@ export const initialState: AppState = {
       },
       Storage: {
         rootIds: ['1', '2', '3', '4', '5'],
-        expanded: false,
+        isOpen: false,
         items: {
           1: {
             id: '1',

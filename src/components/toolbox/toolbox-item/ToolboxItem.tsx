@@ -1,10 +1,7 @@
 import React, { SFC } from 'react';
 import { ConnectDragSource, DragSource, DragSourceCollector, DragSourceSpec } from 'react-dnd';
 import { dndContext, TOOLBOX_ITEM } from '../../../constants';
-
-export interface ToolboxItemData {
-  resourceName: string;
-}
+import { ToolboxItemData } from './types';
 
 interface ToolboxItemProps {
   data: ToolboxItemData;
@@ -15,7 +12,7 @@ interface ToolboxItemProps {
 const ToolboxItem: SFC<ToolboxItemProps> = ({ data, className, connectDragSource }) => {
   return connectDragSource(
     <div className={className}>
-      <span>{data.resourceName}</span>
+      <span>{data.label}</span>
     </div>
   );
 };

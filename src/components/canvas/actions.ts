@@ -1,15 +1,19 @@
-import { Position } from 'cytoscape';
+import { ElementDefinition, Position } from 'cytoscape';
 import { createAction } from 'redux-actions';
-import { ToolboxItemData } from '../toolbox';
+import uuidv4 from 'uuid/v4';
+import { ToolboxItemData } from '../toolbox/toolbox-item/types';
 
-export interface AddNodeActionPayload {
-  data: ToolboxItemData;
-  renderedPosition: Position;
-}
+export type AddNodeActionPayload = ElementDefinition;
 
 export const addNode = createAction<AddNodeActionPayload, ToolboxItemData, Position>(
   'ADD_NODE',
-  (data, renderedPosition) => ({ data, renderedPosition })
+  (item, renderedPosition) => ({
+    data: {
+      id: uuidv4(),
+      ...item
+    },
+    renderedPosition
+  })
 );
 
 export default {

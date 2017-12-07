@@ -14,31 +14,56 @@ export const rootState: RootState = {
           1: {
             id: '1',
             data: {
-              resourceName: 'Availability Sets'
+              label: 'Availability Sets',
+              resource: {
+                name: '',
+                type: 'Microsoft.Compute/availabilitySets',
+                apiVersion: '2017-03-03',
+                location: '',
+                properties: {}
+              }
             }
           },
           2: {
             id: '2',
             data: {
-              resourceName: 'Disks'
+              label: 'Disks',
+              resource: {
+                name: '',
+                type: 'Microsoft.Compute/disks',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {
+                  creationData: {
+                    createOption: ''
+                  }
+                }
+              }
             }
           },
           3: {
             id: '3',
             data: {
-              resourceName: 'Images'
+              label: 'Images',
+              resource: {
+                name: '',
+                type: 'Micorosft.Compute/images',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {}
+              }
             }
           },
           4: {
             id: '4',
             data: {
-              resourceName: 'Snapshots'
+              label: 'Snapshots'
             }
           },
           5: {
             id: '5',
             data: {
-              resourceName: 'Virtual Machines'
+              label: 'Virtual Machines'
             },
             childIds: ['6'],
             expanded: false
@@ -46,13 +71,13 @@ export const rootState: RootState = {
           6: {
             id: '6',
             data: {
-              resourceName: 'Extensions'
+              label: 'Extensions'
             }
           },
           7: {
             id: '7',
             data: {
-              resourceName: 'Virtual Machine Scale Sets'
+              label: 'Virtual Machine Scale Sets'
             },
             childIds: ['8'],
             expanded: false
@@ -60,13 +85,13 @@ export const rootState: RootState = {
           8: {
             id: '8',
             data: {
-              resourceName: 'Extensions'
+              label: 'Extensions'
             }
           },
           9: {
             id: '9',
             data: {
-              resourceName: 'App Service'
+              label: 'App Service'
             }
           }
         }
@@ -78,31 +103,31 @@ export const rootState: RootState = {
           1: {
             id: '1',
             data: {
-              resourceName: 'Availability Sets'
+              label: 'Availability Sets'
             }
           },
           2: {
             id: '2',
             data: {
-              resourceName: 'Disks'
+              label: 'Disks'
             }
           },
           3: {
             id: '3',
             data: {
-              resourceName: 'Images'
+              label: 'Images'
             }
           },
           4: {
             id: '4',
             data: {
-              resourceName: 'Snapshots'
+              label: 'Snapshots'
             }
           },
           5: {
             id: '5',
             data: {
-              resourceName: 'Virtual Machines'
+              label: 'Virtual Machines'
             },
             childIds: ['6'],
             expanded: false
@@ -110,13 +135,13 @@ export const rootState: RootState = {
           6: {
             id: '6',
             data: {
-              resourceName: 'Extensions'
+              label: 'Extensions'
             }
           },
           7: {
             id: '7',
             data: {
-              resourceName: 'Virtual Machine Scale Sets'
+              label: 'Virtual Machine Scale Sets'
             },
             childIds: ['8'],
             expanded: false
@@ -124,7 +149,7 @@ export const rootState: RootState = {
           8: {
             id: '8',
             data: {
-              resourceName: 'Extensions'
+              label: 'Extensions'
             }
           }
         }
@@ -136,31 +161,31 @@ export const rootState: RootState = {
           1: {
             id: '1',
             data: {
-              resourceName: 'Availability Sets'
+              label: 'Availability Sets'
             }
           },
           2: {
             id: '2',
             data: {
-              resourceName: 'Disks'
+              label: 'Disks'
             }
           },
           3: {
             id: '3',
             data: {
-              resourceName: 'Images'
+              label: 'Images'
             }
           },
           4: {
             id: '4',
             data: {
-              resourceName: 'Snapshots'
+              label: 'Snapshots'
             }
           },
           5: {
             id: '5',
             data: {
-              resourceName: 'Virtual Machines'
+              label: 'Virtual Machines'
             },
             expanded: false
           }

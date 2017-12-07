@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { RootState } from '../app';
+import { AppState } from '../app';
 
-export const getToolbox = (state: RootState) => {
+export const getToolbox = (state: AppState) => {
   const { filter, groups } = state.toolbox;
   if (filter.category === 'All' && filter.text !== '') {
     // get root ids to loop through root items

@@ -3,7 +3,7 @@ import { canvasReducer as canvas, CanvasState } from '../canvas';
 import { editorReducer as editor, EditorState } from '../editor';
 import { toolboxReducer as toolbox, ToolboxState } from '../toolbox';
 
-export interface RootState {
+export interface AppState {
   toolbox: ToolboxState;
   canvas: CanvasState;
   editor: EditorState;

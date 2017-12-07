@@ -1,6 +1,6 @@
-import { RootState } from '../components/app';
+import { AppState } from '../components/app';
 
-export const rootState: RootState = {
+export const initialState: AppState = {
   toolbox: {
     filter: {
       category: 'All',
@@ -9,7 +9,6 @@ export const rootState: RootState = {
     groups: {
       Compute: {
         rootIds: ['1', '2', '3', '4', '5', '7', '9'],
-        expanded: true,
         items: {
           1: {
             id: '1',

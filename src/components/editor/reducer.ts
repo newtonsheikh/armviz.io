@@ -1,6 +1,6 @@
 import { Action, handleActions } from 'redux-actions';
+import { Resource } from '../../types';
 import { AddNodeActionPayload } from '../canvas/actions';
-import { ToolboxItemData } from '../toolbox';
 import { EditorActionPayload } from './actions';
 
 export interface EditorState {
@@ -12,9 +12,12 @@ export default handleActions({
     ...state, templateJson: action.payload.content
   }),
   ADD_NODE: (state: EditorState, action: Action<AddNodeActionPayload>) => {
-    const item = action.payload.data as ToolboxItemData;
     const template = JSON.parse(state.templateJson);
-    template.resources.push(item.resource);
-    return { ...state, templateJson: JSON.stringify(template, null, 2) };
+    const resource = (action.payload.data as any).resource as Resource;
+    template.resources.push(resource);
+    return {
+      ...state,
+      templateJson: JSON.stringify(template, null, 2)
+    };
   }
 }, {});

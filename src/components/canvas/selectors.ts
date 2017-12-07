@@ -1,3 +1,3 @@
-import { RootState } from '../app';
+import { AppState } from '../app';
 
-export const getCanvasElements = (state: RootState) => state.canvas;
+export const getCanvasElements = (state: AppState) => state.canvas;

@@ -1,5 +1,5 @@
-import { RootState } from '../app';
+import { AppState } from '../app';
 
-export const getEditorContent = (state: RootState) => ({
+export const getEditorContent = (state: AppState) => ({
   content: state.editor.templateJson
 });

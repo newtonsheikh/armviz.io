@@ -1,4 +1,5 @@
 import { AppState } from '../components/app';
+import imageURLs from '../images';
 
 export const initialState: AppState = {
   toolbox: {
@@ -8,12 +9,14 @@ export const initialState: AppState = {
     },
     groups: {
       Compute: {
-        rootIds: ['1', '2', '3', '4', '5', '7', '9'],
+        rootIds: ['1', '2', '3', '4', '5', '7'],
+        isOpen: true,
         items: {
           1: {
             id: '1',
             data: {
               label: 'Availability Sets',
+              imageURL: imageURLs.availabilitySet,
               resource: {
                 name: '',
                 type: 'Microsoft.Compute/availabilitySets',
@@ -27,6 +30,7 @@ export const initialState: AppState = {
             id: '2',
             data: {
               label: 'Disks',
+              imageURL: imageURLs.discs,
               resource: {
                 name: '',
                 type: 'Microsoft.Compute/disks',
@@ -44,6 +48,7 @@ export const initialState: AppState = {
             id: '3',
             data: {
               label: 'Images',
+              imageURL: imageURLs.discs,
               resource: {
                 name: '',
                 type: 'Micorosft.Compute/images',
@@ -56,13 +61,29 @@ export const initialState: AppState = {
           4: {
             id: '4',
             data: {
-              label: 'Snapshots'
+              label: 'Snapshots',
+              imageURL: imageURLs.discs,
+              resource: {
+                name: '',
+                type: 'Micorosft.Compute/snapshot',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {}
+              }
             }
           },
           5: {
             id: '5',
             data: {
-              label: 'Virtual Machines'
+              label: 'Virtual Machines',
+              imageURL: imageURLs.virtualMachine,
+              resource: {
+                name: '',
+                type: 'Micorosft.Compute/virtualMachine',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {}
+              }
             },
             childIds: ['6'],
             expanded: false
@@ -70,13 +91,30 @@ export const initialState: AppState = {
           6: {
             id: '6',
             data: {
-              label: 'Extensions'
+              label: 'Extensions',
+              imageURL: imageURLs.extensions,
+              resource: {
+                name: '',
+                type: 'Micorosft.Compute/virtualMachines/extensions',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {}
+              }
+
             }
           },
           7: {
             id: '7',
             data: {
-              label: 'Virtual Machine Scale Sets'
+              label: 'Virtual Machine Scale Sets',
+              imageURL: imageURLs.availabilitySet,
+              resource: {
+                name: '',
+                type: 'Micorosft.Compute/availabilitySets',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {}
+              }
             },
             childIds: ['8'],
             expanded: false
@@ -84,110 +122,72 @@ export const initialState: AppState = {
           8: {
             id: '8',
             data: {
-              label: 'Extensions'
-            }
-          },
-          9: {
-            id: '9',
-            data: {
-              label: 'App Service'
-            }
-          }
-        }
-      },
-      Network: {
-        rootIds: ['1', '2', '3', '4', '5', '7'],
-        isOpen: false,
-        items: {
-          1: {
-            id: '1',
-            data: {
-              label: 'Availability Sets'
-            }
-          },
-          2: {
-            id: '2',
-            data: {
-              label: 'Disks'
-            }
-          },
-          3: {
-            id: '3',
-            data: {
-              label: 'Images'
-            }
-          },
-          4: {
-            id: '4',
-            data: {
-              label: 'Snapshots'
-            }
-          },
-          5: {
-            id: '5',
-            data: {
-              label: 'Virtual Machines'
-            },
-            childIds: ['6'],
-            expanded: false
-          },
-          6: {
-            id: '6',
-            data: {
-              label: 'Extensions'
-            }
-          },
-          7: {
-            id: '7',
-            data: {
-              label: 'Virtual Machine Scale Sets'
-            },
-            childIds: ['8'],
-            expanded: false
-          },
-          8: {
-            id: '8',
-            data: {
-              label: 'Extensions'
+              label: 'Extensions',
+              imageURL: imageURLs.extensions,
+              resource: {
+                name: '',
+                type: 'Micorosft.Compute/availabilitySets/extensions',
+                apiVersion: '2017-03-30',
+                location: '',
+                properties: {}
+              }
+
             }
           }
         }
       },
       Storage: {
-        rootIds: ['1', '2', '3', '4', '5'],
-        isOpen: false,
+        rootIds: ['1'],
+        isOpen: true,
         items: {
           1: {
             id: '1',
             data: {
-              label: 'Availability Sets'
+              label: 'Storage Account',
+              imageURL: imageURLs.storage,
+              resource: {
+                name: '',
+                type: 'Microsoft.Storage/storageAccounts',
+                apiVersion: '2017-06-01',
+                location: '',
+                sku: {
+                  name: ''
+                },
+                kind: '',
+                properties: {}
+              }
+            }
+          }
+        }
+      },
+      Web: {
+        rootIds: [ '1', '2' ],
+        isOpen: true,
+        items: {
+          1: {
+            id: '1',
+            data: {
+              label: 'Server Farms',
+              imageURL: imageURLs.webHosting,
+              resource: {
+                name: '',
+                type: 'Microsoft.Web/serverfarms',
+                apiVersion: '2016-09-01'
+              }
             }
           },
           2: {
             id: '2',
             data: {
-              label: 'Disks'
+              label: 'Sites',
+              imageURL: imageURLs.webapp,
+              resource: {
+                name: '',
+                type: 'Microsoft.Web/sites',
+                apiVersion: '2016-08-01'
+              }
             }
           },
-          3: {
-            id: '3',
-            data: {
-              label: 'Images'
-            }
-          },
-          4: {
-            id: '4',
-            data: {
-              label: 'Snapshots'
-            }
-          },
-          5: {
-            id: '5',
-            data: {
-              label: 'Virtual Machines'
-            },
-            expanded: false
-          }
         }
       }
     }

@@ -2,8 +2,8 @@ import { Action, combineActions, handleActions } from 'redux-actions';
 import { TREE_NODE_COLLAPSE, TREE_NODE_EXPAND, TREE_NODE_TOGGLE } from '../../../constants';
 import { TreeNodeActionPayload, treeNodeReducer, TreeNodeState } from './tree-node';
 
-export interface TreeViewState {
-  [nodeId: string]: TreeNodeState;
+export interface TreeViewState<T> {
+  [nodeId: string]: TreeNodeState<T>;
 }
 
 export default handleActions({
@@ -11,7 +11,7 @@ export default handleActions({
     TREE_NODE_TOGGLE,
     TREE_NODE_COLLAPSE,
     TREE_NODE_EXPAND
-  )]: (state: TreeViewState, action: Action<TreeNodeActionPayload>) => {
+  )]: (state: TreeViewState<any>, action: Action<TreeNodeActionPayload>) => {
     const { nodeId } = action.payload;
     return {
       ...state,

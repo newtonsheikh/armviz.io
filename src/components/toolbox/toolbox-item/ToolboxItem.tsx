@@ -1,15 +1,16 @@
 import React, { SFC } from 'react';
 import { ConnectDragSource, DragSource, DragSourceCollector, DragSourceSpec } from 'react-dnd';
 import { TOOLBOX_ITEM } from '../../../constants';
-import { ToolboxItemData } from './types';
+import { ResourceNode } from '../../../types';
 
 interface ToolboxItemProps {
-  data: ToolboxItemData;
+  data: ResourceNode;
   className: string;
   connectDragSource: ConnectDragSource;
 }
 
 const ToolboxItem: SFC<ToolboxItemProps> = ({ data, className, connectDragSource }) => {
+  console.log(data);
   return connectDragSource(
     <div className={className}>
       <span>{data.label}</span>

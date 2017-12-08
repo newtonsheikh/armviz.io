@@ -11,7 +11,7 @@ export const getToolbox = (state: AppState) => {
       const newRootIds = [];
       let match = false;
       for (const rootId of rootIds) {
-        const resourceName = groups[groupName].items[rootId].data.resourceName;
+        const resourceName = groups[groupName].items[rootId].data.label;
         if (_.includes(_.toLower(resourceName), _.toLower(filter.text))) {
           newRootIds.push(rootId);
           match = true;

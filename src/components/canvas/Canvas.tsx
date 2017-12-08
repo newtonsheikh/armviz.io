@@ -4,7 +4,7 @@ import { ConnectDropTarget, DropTarget, DropTargetCollector, DropTargetSpec } fr
 import { findDOMNode } from 'react-dom';
 import Measure from 'react-measure';
 import styled from 'styled-components';
-import { TOOLBOX_ITEM } from '../../constants/index';
+import { TOOLBOX_ITEM } from '../../constants';
 import { ToolboxItemData } from '../toolbox';
 
 // const vm = require('images/virtual-machine.svg');

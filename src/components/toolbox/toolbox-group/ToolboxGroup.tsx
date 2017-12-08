@@ -1,7 +1,7 @@
 import React, { SFC } from 'react';
-import { Collapse } from '../../shared/collapse/index';
+import { Collapse } from '../../shared/collapse';
 import { TreeView } from '../../shared/tree-view';
-import { ToolboxItem } from '../toolbox-item/index';
+import { ToolboxItem } from '../toolbox-item';
 
 export interface ToolboxGroupProps {
   name: string;

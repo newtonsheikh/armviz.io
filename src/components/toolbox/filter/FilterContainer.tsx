@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { AppState } from '../../app/index';
+import { AppState } from '../../app';
 import { filterByCategory as filter } from './actions';
 import { Filter } from './Filter';
 import { getFilter } from './selectors';

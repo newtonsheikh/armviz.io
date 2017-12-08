@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { AppState } from '../app/index';
+import { AppState } from '../app';
 import { getToolbox } from './selector';
 import Toolbox from './Toolbox';
 

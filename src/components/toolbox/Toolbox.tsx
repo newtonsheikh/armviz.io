@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { dndContext } from '../../constants';
-import { Filter } from './filter/index';
+import { Filter } from './filter';
 import { ToolboxGroup } from './toolbox-group/ToolboxGroup';
 
 const Wrapper = styled.div`

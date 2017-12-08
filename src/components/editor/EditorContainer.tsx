@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { AppState } from '../app/index';
+import { AppState } from '../app';
 import { changeTemplateContent as onChange } from './actions';
 import Editor from './Editor';
 import { getEditorContent } from './selectors';

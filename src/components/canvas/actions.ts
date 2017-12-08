@@ -1,7 +1,7 @@
 import { ElementDefinition, Position } from 'cytoscape';
 import { createAction } from 'redux-actions';
 import uuidv4 from 'uuid/v4';
-import { ToolboxItemData } from '../toolbox/index';
+import { ToolboxItemData } from '../toolbox';
 
 export type AddNodeActionPayload = ElementDefinition;
 

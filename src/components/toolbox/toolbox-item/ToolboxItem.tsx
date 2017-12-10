@@ -10,7 +10,6 @@ interface ToolboxItemProps {
 }
 
 const ToolboxItem: SFC<ToolboxItemProps> = ({ data, className, connectDragSource }) => {
-  console.log(data);
   return connectDragSource(
     <div className={className}>
       <span>{data.label}</span>

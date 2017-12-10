@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import MonacoEditor from 'react-monaco-editor';
+import { compute } from '../../constants/schemas/compute';
+import { deployTemplate } from '../../constants/schemas/deployTemplate';
 
 export interface EditorProps {
   content: string;
@@ -15,8 +17,11 @@ export default class Editor extends Component<EditorProps> {
   editorWillMount() {
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       schemas: [{
-        uri: 'http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#',
-        schema: {}
+        uri: 'https://schema.management.azure.com/schemas/2017-03-30/Microsoft.Compute.json',
+        schema: compute
+      }, {
+        uri: 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json',
+        schema: deployTemplate
       }],
       validate: true
     });

@@ -34,7 +34,7 @@ export interface Outputs {
 }
 
 export interface Template {
-  $schema: 'http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#';
+  $schema: 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#';
   contentVersion: string;
   parameters: Parameters;
   variables: Variables;

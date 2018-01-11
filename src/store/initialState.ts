@@ -20,7 +20,7 @@ export const initialState: AppState = {
               resource: {
                 name: '',
                 type: 'Microsoft.Compute/availabilitySets',
-                apiVersion: '2017-03-03',
+                apiVersion: '2017-03-30',
                 location: '',
                 properties: {}
               }

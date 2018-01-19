@@ -1,65 +1,15 @@
 {
-  "extends": [
-    "tslint:recommended",
-    "tslint-react"
-  ],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "rules": {
-    "align": [
-      true,
-      "parameters",
-      "statements"
-    ],
-    "arrow-parens": false,
-    "interface-name": [
-      true,
-      "never-prefix"
-    ],
-    "jsx-boolean-value": false,
-    "jsx-no-lambda": false,
-    "jsx-no-multiline-js": false,
+    "interface-name": [true, "never-prefix"],
     "member-access": false,
-    "member-ordering": [
-      true,
-      {
-        "order": [
-          "public-before-private",
-          "static-before-instance",
-          "variables-before-functions"
-        ]
-      }
-    ],
-    "no-console": [
-      true,
-      "log",
-      "error",
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
+    "no-console": [true, "log", "error", "debug", "info", "time", "timeEnd", "trace"],
     "no-duplicate-variable": true,
     "no-switch-case-fall-through": true,
     "no-var-requires": false,
     "object-literal-sort-keys": false,
-    "quotemark": [
-      true,
-      "single",
-      "jsx-double"
-    ],
     "switch-default": true,
-    "trailing-comma": false,
-    "typedef": [
-      true,
-      "parameter",
-      "property-declaration"
-    ],
-    "variable-name": [
-      true,
-      "ban-keywords",
-      "check-format",
-      "allow-leading-underscore",
-      "allow-pascal-case"
-    ]
+    "typedef": [true, "parameter", "property-declaration"],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
   }
 }

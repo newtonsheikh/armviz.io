@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { PanelLayout } from './PanelLayout/PanelLayout';
+import styled from 'styled-components';
+import { Header } from './Header';
+import { Workbench } from './Workbench';
+// import { PanelLayout } from './PanelLayout/PanelLayout';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+`;
 
 export default class App extends Component {
   render() {
     return (
-      <PanelLayout
-        definitions={{
-          0: { size: '500px' }
-        }}
-      >
-        <div style={{ width: '100%', height: '100%', background: '#9E9AC8' }} />
-        <div style={{ width: '100%', height: '100%', background: '#BCBDDC' }} />
-        <div style={{ width: '100%', height: '100%', background: 'white' }} />
-      </PanelLayout>
+      <Wrapper>
+        <Header />
+        <Workbench />
+      </Wrapper>
     );
   }
 }

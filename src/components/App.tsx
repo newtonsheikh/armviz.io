@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Header } from './Header';
 import { Workbench } from './Workbench';
-// import { PanelLayout } from './PanelLayout/PanelLayout';
 
 const Wrapper = styled.div`
   display: flex;

@@ -50,13 +50,14 @@ export class Splitter extends PureComponent<SplitterProps, SplitterState> {
 
   handleDragStart: DraggableEventHandler = e => {
     const { index, horizontal, onMoveStart } = this.props;
+    const splitBarRect = this.splitBarRef.getBoundingClientRect();
     if (horizontal) {
       document.body.style.cursor = 'ew-resize';
-      const initialOffset = this.bound(e.x - this.splitBarRef.offsetLeft - this.splitBarRef.offsetWidth / 2.0);
+      const initialOffset = this.bound(e.x - splitBarRect.left - this.splitBarRef.offsetWidth / 2.0);
       this.setState({ dragging: true, left: initialOffset, initialOffset });
     } else {
       document.body.style.cursor = 'ns-resize';
-      const initialOffset = this.bound(e.y - this.splitBarRef.offsetTop - this.splitBarRef.offsetHeight / 2.0);
+      const initialOffset = this.bound(e.y - splitBarRect.top - this.splitBarRef.offsetHeight / 2.0);
       this.setState({ dragging: true, top: initialOffset, initialOffset });
     }
     onMoveStart(index);

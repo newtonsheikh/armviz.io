@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Canvas } from '../Canvas/Canvas';
 import { Editor } from '../Editor/Editor';
 import { PanelLayout } from '../PanelLayout';
+import { Panel } from '../PanelLayout/Panel';
+import { Splitter } from '../PanelLayout/Splitter';
 import { Sidebar } from '../Sidebar';
 
 const Wrapper = styled.div`
@@ -14,23 +16,23 @@ const Wrapper = styled.div`
 export class Workbench extends Component {
   render() {
     return (
-      <Wrapper>
-        <PanelLayout
-          definitions={{
-            0: { size: '320px', minSize: '120px', maxSize: '600px' }
-          }}
-        >
-          <Sidebar />
-          <PanelLayout
-            orientation={'vertical'}
-            definitions={{
-              0: { minSize: '80px' },
-              1: { minSize: '80px' }
-            }}
-          >
-            <Canvas />
-            <Editor />
-          </PanelLayout>
+      <Wrapper style={{}}>
+        <PanelLayout>
+          <Panel initSize={400} minSize={160} fixed={true}>
+            <Sidebar />
+          </Panel>
+          <Splitter />
+          <Panel minSize={480}>
+            <PanelLayout orientation={'vertical'}>
+              <Panel minSize={80}>
+                <Canvas />
+              </Panel>
+              <Splitter />
+              <Panel minSize={80}>
+                <Editor />
+              </Panel>
+            </PanelLayout>
+          </Panel>
         </PanelLayout>
       </Wrapper>
     );

@@ -1,194 +1,130 @@
-import update from 'immutability-helper';
-import React, { Children, Component, ReactChild } from 'react';
+import React, { Children, cloneElement, Component, ReactElement } from 'react';
+import { findDOMNode } from 'react-dom';
 import styled from 'styled-components';
 import { Panel } from './Panel';
 import { Splitter } from './Splitter';
-import { calc, isFlexible, isHorizontal } from './utils';
-
-export type Orientation = 'horizontal' | 'vertical';
-
-interface PanelDefinition {
-  size: string | number;
-  minSize: string;
-  maxSize: string;
-}
 
 interface PanelLayoutProps {
-  orientation?: Orientation;
-  definitions?: {
-    [index: number]: Partial<PanelDefinition>;
-  };
+  orientation?: 'horizontal' | 'vertical';
 }
 
 interface PanelLayoutState {
-  definitions: Array<
-    PanelDefinition & {
-      minSizeInPixels?: number;
-      maxSizeInPixels?: number;
-    }
-  >;
-  splitterRanges: Array<{
-    lowerBound: number;
-    upperBound: number;
-  }>;
+  panelSizes: number[];
 }
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const InnerWrapper = styled.div`
+const PanelLayoutWrapper = styled.div`
   display: flex;
-  flex-direction: ${({ horizontal }: { horizontal: boolean }) => (horizontal ? 'row' : 'column')};
+  flex-direction: ${(props: PanelLayoutProps) => (props.orientation === 'horizontal' ? 'row' : 'column')}
   width: 100%;
   height: 100%;
-`;
-
-const Ruler = styled.div`
-  position: absolute;
-  visibility: hidden;
 `;
 
 export class PanelLayout extends Component<PanelLayoutProps, PanelLayoutState> {
   static defaultProps = {
-    orientation: 'horizontal',
-    definitions: {}
+    orientation: 'horizontal'
   };
 
-  state: PanelLayoutState = {
-    definitions: Children.map(this.props.children, (child, i) => {
-      const { size = 1, minSize = '4px', maxSize = 'none' } = this.props.definitions[i] || {};
+  state = {
+    panelSizes: this.normalizePanelSizes(
+      (Children.toArray(this.props.children) as Array<ReactElement<any>>)
+        .filter(child => child.type === Panel)
+        .map(child => ({ value: child.props.initSize, fixed: child.props.fixed }))
+    )
+  };
+
+  ref = HTMLDivElement;
+  refPanels = new Map<number, Panel>();
+  refSplitters = new Map<number, Splitter>();
+
+  handleSplitterMoveStart = (index: number) => {
+    const { refPanels, refSplitters, horizontal } = this;
+
+    const panels = [index, index + 1].map(i => refPanels.get(i));
+    const dimensions = panels.map(panel => [
+      findDOMNode(panel)[`client${horizontal() ? 'Width' : 'Height'}`], // size
+      panel.props.minSize,
+      panel.props.maxSize
+    ]);
+
+    const splitter = refSplitters.get(index);
+    splitter.setBoundries.apply(splitter, [...dimensions[0], ...dimensions[1]]);
+  };
+
+  handleSplitterMoveEnd = (index: number, offset: number) => {
+    const { refPanels, horizontal, normalizePanelSizes } = this;
+    const panelSizes = Array.from(refPanels.values()).map(panel => {
+      const panelNode = findDOMNode(panel);
       return {
-        size: isFlexible(size) ? size : calc(size),
-        minSize: minSize === '4px' ? minSize : calc(minSize),
-        maxSize: maxSize === 'none' ? maxSize : calc(maxSize),
-        minSizeInPixels: minSize === '4px' ? 4 : undefined,
-        maxSizeInPixels: maxSize === 'none' ? Infinity : undefined
+        value: horizontal() ? panelNode.clientWidth : panelNode.clientHeight,
+        fixed: panel.props.fixed
       };
-    }),
-    splitterRanges: new Array(Children.count(this.props.children) - 1).fill({
-      lowerBound: 0,
-      upperBound: 0
-    })
+    });
+
+    panelSizes[index].value = panelSizes[index].value + offset;
+    panelSizes[index + 1].value = panelSizes[index + 1].value - offset;
+
+    this.setState({ panelSizes: normalizePanelSizes(panelSizes) });
   };
 
-  panelRefs = new Map<number, HTMLDivElement>();
-  rulerRef: HTMLDivElement;
+  normalizePanelSizes(panelSizes: Array<{ value: number; fixed: boolean }>): number[] {
+    const normalizedSizes = panelSizes.map(size => size.value);
 
-  handleMoveStart = (index: number) => {
-    const [m1, m2] = [index, index + 1].map(i => this.measurePanel(i));
-    const lowerBound = Math.max(m1.minSize - m1.size, m2.size - m2.maxSize);
-    const upperBound = Math.min(m1.maxSize - m1.size, m2.size - m2.minSize);
-    this.setState(prevState =>
-      update(prevState, {
-        splitterRanges: {
-          [index]: { $set: { lowerBound, upperBound } }
+    const flexSizes = panelSizes.filter(size => !size.fixed);
+    const flexWeight = flexSizes.reduce((weight, size) => weight + size.value, 0);
+    if (flexSizes.length > 0 && flexWeight) {
+      for (let i = 0; i < panelSizes.length; i++) {
+        const size = panelSizes[i];
+        if (!size.fixed) {
+          normalizedSizes[i] = size.value / flexWeight;
         }
-      })
-    );
+      }
+    }
+
+    return normalizedSizes;
+  }
+
+  horizontal = () => {
+    return this.props.orientation === 'horizontal';
   };
 
-  handleMoveEnd = (index: number, distance: number) => {
-    this.setState(prevState =>
-      update(prevState, {
-        definitions: (definitions: PanelDefinition[]) =>
-          update(definitions, this.updateDefinitions(definitions, index, distance))
-      })
-    );
+  renderPanel = (child: ReactElement<any>, index: number) => {
+    const { refPanels, horizontal } = this;
+    const { panelSizes } = this.state;
+    return cloneElement(child, {
+      key: `panel-${index}`,
+      ref: (panel: Panel) => refPanels.set(index, panel),
+      horizontal: horizontal(),
+      size: panelSizes[index]
+    });
   };
 
-  updateDefinitions = (definitions: PanelDefinition[], index: number, distance: number) => {
-    const { measurePanel } = this;
-    const [size1, size2] = [index, index + 1].map(i => measurePanel(i).size * 1.0);
-    let [defSize1, defSize2] = [index, index + 1].map(i => definitions[i].size);
+  renderSplitter = (child: ReactElement<any>, index: number) => {
+    const { refSplitters, handleSplitterMoveStart, handleSplitterMoveEnd, horizontal } = this;
 
-    defSize1 = isFlexible(defSize1) ? (size1 + distance) / size1 * defSize1 : calc(`${defSize1} + ${distance}px`);
-    defSize2 = isFlexible(defSize2) ? (size2 - distance) / size2 * defSize2 : calc(`${defSize2} - ${distance}px`);
-
-    return {
-      [index]: { $merge: { size: defSize1 } },
-      [index + 1]: { $merge: { size: defSize2 } }
-    };
-  };
-
-  measurePanel = (index: number) => {
-    const { panelRefs, getSizeInPixels } = this;
-    const { orientation } = this.props;
-    const { definitions } = this.state;
-
-    const panelRef = panelRefs.get(index);
-    const panelDef = definitions[index];
-
-    const size = isHorizontal(orientation) ? panelRef.offsetWidth : panelRef.offsetHeight;
-    const minSize = panelDef.minSizeInPixels || getSizeInPixels(panelDef.minSize);
-    const maxSize = panelDef.maxSizeInPixels || getSizeInPixels(panelDef.maxSize);
-
-    return { size, minSize, maxSize: maxSize < minSize ? minSize : maxSize };
-  };
-
-  getSizeInPixels = (size: string) => {
-    this.rulerRef.style.left = size;
-    return this.rulerRef.offsetLeft;
-  };
-
-  setPanelRef = (index: number, el: HTMLDivElement) => this.panelRefs.set(index, el);
-
-  setRulerRef = (el: HTMLDivElement) => (this.rulerRef = el);
-
-  renderPanel = (child: ReactChild, index: number) => {
-    const { setPanelRef } = this;
-    const { orientation } = this.props;
-    const { size, minSize, maxSize } = this.state.definitions[index];
-    return (
-      <Panel
-        innerRef={setPanelRef}
-        key={`panel-${index}`}
-        index={index}
-        horizontal={isHorizontal(orientation)}
-        flexible={isFlexible(size)}
-        size={size}
-        minSize={minSize}
-        maxSize={maxSize}
-      >
-        {child}
-      </Panel>
-    );
-  };
-
-  renderSplitter = (index: number) => {
-    const { handleMoveStart, handleMoveEnd } = this;
-    const { orientation } = this.props;
-    const splitterRange = this.state.splitterRanges[index];
-    return (
-      <Splitter
-        key={`splitter-${index}`}
-        index={index}
-        horizontal={isHorizontal(orientation)}
-        lowerBound={splitterRange.lowerBound}
-        upperBound={splitterRange.upperBound}
-        onMoveStart={handleMoveStart}
-        onMoveEnd={handleMoveEnd}
-      />
-    );
+    return cloneElement(child, {
+      key: `splitter-${index}`,
+      ref: (splitter: Splitter) => refSplitters.set(index, splitter),
+      index,
+      horizontal: horizontal(),
+      onMoveStart: handleSplitterMoveStart,
+      onMoveEnd: handleSplitterMoveEnd
+    });
   };
 
   render() {
-    const { renderPanel, renderSplitter, setRulerRef } = this;
+    const { renderPanel, renderSplitter } = this;
     const { orientation, children } = this.props;
-    const childCount = Children.count(children);
+    let panelIndex = 0;
+    let splitterIndex = 0;
+
     return (
-      <Wrapper>
-        <InnerWrapper horizontal={isHorizontal(orientation)}>
-          {Children.map(children, (child, i) => (
-            <>
-              {renderPanel(child, i)}
-              {i < childCount - 1 && renderSplitter(i)}
-            </>
-          ))}
-        </InnerWrapper>
-        <Ruler innerRef={setRulerRef} />
-      </Wrapper>
+      <PanelLayoutWrapper orientation={orientation}>
+        {Children.map(
+          children,
+          (child: ReactElement<any>) =>
+            child.type === Panel ? renderPanel(child, panelIndex++) : renderSplitter(child, splitterIndex++)
+        )}
+      </PanelLayoutWrapper>
     );
   }
 }

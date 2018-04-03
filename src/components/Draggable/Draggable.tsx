@@ -7,8 +7,8 @@ interface DraggableProps {
 }
 
 interface DraggableState {
-  startX: number;
-  startY: number;
+  initX: number;
+  initY: number;
 }
 
 export interface DraggableEvent {
@@ -21,7 +21,7 @@ export interface DraggableEvent {
 export type DraggableEventHandler = (event: DraggableEvent) => any;
 
 export class Draggable extends Component<DraggableProps, DraggableState> {
-  state = { startX: NaN, startY: NaN };
+  state = { initX: NaN, initY: NaN };
 
   handleMouseDown: MouseEventHandler<HTMLElement> = e => {
     // Left-clicks only
@@ -31,7 +31,7 @@ export class Draggable extends Component<DraggableProps, DraggableState> {
       document.addEventListener('mouseup', this.handleMouseUp);
       document.addEventListener('mousemove', this.handleMouseMove);
 
-      this.setState({ startX: e.clientX, startY: e.clientY });
+      this.setState({ initX: e.clientX, initY: e.clientY });
       this.fireEvent(this.props.onDragStart, {
         x: e.clientX,
         y: e.clientY,
@@ -47,7 +47,7 @@ export class Draggable extends Component<DraggableProps, DraggableState> {
     document.removeEventListener('mouseup', this.handleMouseUp);
     document.removeEventListener('mousemove', this.handleMouseMove);
 
-    this.setState({ startX: NaN, startY: NaN });
+    this.setState({ initX: NaN, initY: NaN });
     this.fireEvent(this.props.onDragEnd, {
       x: e.clientX,
       y: e.clientY,
@@ -59,12 +59,12 @@ export class Draggable extends Component<DraggableProps, DraggableState> {
   handleMouseMove = (e: MouseEvent) => {
     e.preventDefault();
 
-    const { startX, startY } = this.state;
+    const { initX, initY } = this.state;
     this.fireEvent(this.props.onDragMove, {
       x: e.clientX,
       y: e.clientY,
-      offsetX: e.clientX - startX,
-      offsetY: e.clientY - startY
+      offsetX: e.clientX - initX,
+      offsetY: e.clientY - initY
     });
   };
 

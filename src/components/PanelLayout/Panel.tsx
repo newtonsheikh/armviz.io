@@ -1,53 +1,66 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
-interface PanelProps {
-  index: number;
+export interface PanelProps {
   horizontal: boolean;
-  flexible: boolean;
-  size: number | string;
-  minSize: string;
-  maxSize: string;
-  innerRef?: (index: number, el: Element) => any;
+  initSize: number;
+  size: number;
+  minSize: number;
+  maxSize: number;
+  fixed: boolean;
+  onInitSizeChange?: (newInitSize: number) => any;
 }
 
-type WrapperProps = Pick<PanelProps, 'flexible' | 'size' | 'minSize' | 'maxSize'>;
+type PanelWrapperProps = Pick<PanelProps, 'horizontal' | 'size' | 'minSize' | 'maxSize' | 'fixed'>;
 
-const Wrapper = styled.div`
-  flex-shrink: 1;
-  flex-basis: ${({ flexible, size }: WrapperProps) => (flexible ? `${size}px` : 'auto')};
-  flex-grow: ${({ flexible, size }: WrapperProps) => (flexible ? size : 0)};
+const setDimensions = ({ horizontal, size, minSize, maxSize, fixed }: PanelWrapperProps) => {
+  const dimension = horizontal ? 'width' : 'height';
+  return `
+    ${dimension}: ${fixed ? `${size}px` : 'auto'};
+    min-${dimension}: ${minSize}px;
+    max-${dimension}: ${maxSize}px;
+  `;
+};
+
+const PanelWrapper = styled.div`
+  display: flex;
+  flex-grow: ${({ size, fixed }) => (fixed ? 0 : size)};
+  flex-basis: ${({ size, fixed }) => (fixed ? 'auto' : size + 'px')};
+  overflow: auto;
+  ${(props: PanelWrapperProps) => setDimensions(props)};
 `;
 
-const HorizontalWrapper = Wrapper.extend`
-  width: ${({ flexible, size }: WrapperProps) => (flexible ? 'auto' : size)};
-  min-width: ${({ minSize }: WrapperProps) => minSize};
-  max-width: ${({ maxSize }: WrapperProps) => maxSize};
-`;
-
-const VerticalWrapper = Wrapper.extend`
-  height: ${({ flexible, size }: WrapperProps) => (flexible ? 'auto' : size)};
-  min-height: ${({ minSize }: WrapperProps) => minSize};
-  max-height: ${({ maxSize }: WrapperProps) => maxSize};
-`;
-
-export class Panel extends PureComponent<PanelProps> {
-  propagateInnerRef = (el: Element) => {
-    const { index, innerRef } = this.props;
-    innerRef(index, el);
+export class Panel extends Component<Partial<PanelProps>> {
+  static defaultProps = {
+    initSize: 1,
+    size: 1,
+    minSize: 4,
+    maxSize: Infinity,
+    fixed: false
   };
 
-  render() {
-    const { horizontal, size, flexible, minSize, maxSize, children } = this.props;
-    const PanelWrapper = horizontal ? HorizontalWrapper : VerticalWrapper;
+  shouldComponentUpdate(nextProps: Readonly<PanelProps>) {
+    const { horizontal, size, minSize, maxSize, fixed } = this.props;
     return (
-      <PanelWrapper
-        innerRef={this.propagateInnerRef}
-        flexible={flexible}
-        size={size}
-        minSize={minSize}
-        maxSize={maxSize}
-      >
+      horizontal !== nextProps.horizontal ||
+      size !== nextProps.size ||
+      minSize !== nextProps.minSize ||
+      maxSize !== nextProps.maxSize ||
+      fixed !== nextProps.fixed
+    );
+  }
+
+  componentWillReceiveProps(nextProps: Readonly<PanelProps>) {
+    const { initSize, onInitSizeChange } = this.props;
+    if (initSize !== nextProps.initSize) {
+      onInitSizeChange(nextProps.initSize);
+    }
+  }
+
+  render() {
+    const { horizontal, size, minSize, maxSize, fixed, children } = this.props;
+    return (
+      <PanelWrapper horizontal={horizontal} size={size} minSize={minSize} maxSize={maxSize} fixed={fixed}>
         {children}
       </PanelWrapper>
     );

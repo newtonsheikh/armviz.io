@@ -2,96 +2,148 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { Draggable, DraggableEventHandler } from '../Draggable';
 
-type SplitBarProps = Pick<SplitterState, 'dragging' | 'top' | 'left'>;
-
-const Bar = styled.div.attrs<SplitBarProps>({
-  style: ({ top, left }: SplitBarProps) => ({
-    top: `${top}px`,
-    left: `${left}px`
-  })
-})`
-  position: relative;
-  opacity: ${props => (props.dragging ? 0.5 : 0)};
-`;
-
-const HorizontalBar = Bar.extend`
-  margin: 0 -4px;
-  border-left: 4px solid black;
-  border-right: 4px solid black;
-  cursor: ew-resize;
-`;
-
-const VerticalBar = Bar.extend`
-  margin: -4px 0;
-  border-top: 4px solid black;
-  border-bottom: 4px solid black;
-  cursor: ns-resize;
-`;
-
 interface SplitterProps {
   index: number;
   horizontal: boolean;
-  lowerBound: number;
-  upperBound: number;
   onMoveStart: (index: number) => any;
-  onMoveEnd: (index: number, distance: number) => any;
+  onMoveEnd: (index: number, offset: number) => any;
 }
 
 interface SplitterState {
+  offset: number;
   dragging: boolean;
-  top: number;
-  left: number;
-  initialOffset: number;
 }
 
-export class Splitter extends PureComponent<SplitterProps, SplitterState> {
-  splitBarRef: HTMLDivElement;
-  state = { dragging: false, top: 0, left: 0, initialOffset: 0 };
+const SplitterWrapper = styled.div`
+  position: relative;
+  height: auto;
+  width: auto;
+  cursor: ${(props: Pick<SplitterProps, 'horizontal'>) => (props.horizontal ? 'ew-resize' : 'ns-resize')};
+`;
+
+const SplitterContentGhost = styled.div.attrs<{
+  horizontal: boolean;
+  offset: number;
+  marginLeft: string;
+  marginRight: string;
+  marginTop: string;
+  marginBottom: string;
+  height: string;
+  width: string;
+}>({
+  style: (props: { horizontal: boolean; offset: number }) => ({
+    [props.horizontal ? 'left' : 'top']: `${props.offset}px`
+  })
+})`
+  position: absolute;
+  background: black;
+  opacity: 0.5;
+  z-index: 999;
+  margin-left: ${props => props.marginLeft};
+  margin-right: ${props => props.marginRight};
+  margin-top: ${props => props.marginTop};
+  margin-right: ${props => props.marginRight};
+  height: ${props => props.height};
+  width: ${props => props.width};
+`;
+
+const DefaultSplitterContent = styled.div`
+  margin: ${(props: Pick<SplitterProps, 'horizontal'>) => (props.horizontal ? '0 -4px' : '-4px 0')};
+  width: ${props => (props.horizontal ? '8px' : '100%')};
+  height: ${props => (props.horizontal ? '100%' : '8px')};
+`;
+
+export class Splitter extends PureComponent<Partial<SplitterProps>, SplitterState> {
+  state = { dragging: false, offset: 0 };
+
+  initOffset: number;
+  lowerBound: number = -300;
+  upperBound: number = 300;
+  contentRef: HTMLElement;
+
+  setBoundries(
+    prevPanelSize: number,
+    prevPanelMinSize: number,
+    prevPanelMaxSize: number,
+    nextPanelSize: number,
+    nextPanelMinSize: number,
+    nextPanelMaxSize: number
+  ) {
+    this.lowerBound = Math.max(prevPanelMinSize - prevPanelSize, nextPanelSize - nextPanelMaxSize);
+    this.upperBound = Math.min(prevPanelMaxSize - prevPanelSize, nextPanelSize - nextPanelMinSize);
+  }
 
   handleDragStart: DraggableEventHandler = e => {
+    const { contentRef, ensureBoundries } = this;
     const { index, horizontal, onMoveStart } = this.props;
-    const splitBarRect = this.splitBarRef.getBoundingClientRect();
-    if (horizontal) {
-      document.body.style.cursor = 'ew-resize';
-      const initialOffset = this.bound(e.x - splitBarRect.left - this.splitBarRef.offsetWidth / 2.0);
-      this.setState({ dragging: true, left: initialOffset, initialOffset });
-    } else {
-      document.body.style.cursor = 'ns-resize';
-      const initialOffset = this.bound(e.y - splitBarRect.top - this.splitBarRef.offsetHeight / 2.0);
-      this.setState({ dragging: true, top: initialOffset, initialOffset });
-    }
+
     onMoveStart(index);
+
+    const rect = contentRef.getBoundingClientRect();
+    const offset = horizontal
+      ? ensureBoundries(e.x - rect.left - contentRef.offsetWidth / 2)
+      : ensureBoundries(e.y - rect.top - contentRef.offsetHeight / 2);
+
+    this.initOffset = offset;
+    this.setState({ dragging: true, offset });
+    document.body.style.cursor = horizontal ? 'ew-resize' : 'ns-resize';
   };
 
   handleDragMove: DraggableEventHandler = e => {
-    const { initialOffset } = this.state;
-    this.props.horizontal
-      ? this.setState({ left: this.bound(e.offsetX + initialOffset) })
-      : this.setState({ top: this.bound(e.offsetY + initialOffset) });
+    const { initOffset, ensureBoundries } = this;
+    const { horizontal } = this.props;
+
+    this.setState({
+      offset: ensureBoundries(initOffset + (horizontal ? e.offsetX : e.offsetY))
+    });
   };
 
   handleDragEnd: DraggableEventHandler = e => {
-    const { index, horizontal, onMoveEnd } = this.props;
-    const { top, left } = this.state;
+    const { index, onMoveEnd } = this.props;
+    const { offset } = this.state;
+
+    this.setState({ dragging: false, offset: 0 });
     document.body.style.cursor = 'auto';
-    this.setState({ dragging: false, top: 0, left: 0, initialOffset: 0 });
-    onMoveEnd(index, horizontal ? left : top);
+
+    if (offset !== 0) {
+      onMoveEnd(index, offset);
+    }
   };
 
-  bound = (offset: number) => {
-    const { lowerBound, upperBound } = this.props;
-    return Math.min(Math.max(offset, lowerBound), upperBound);
+  ensureBoundries = (offset: number) => {
+    return Math.min(Math.max(offset, this.lowerBound), this.upperBound);
   };
 
-  setSplitBarRef = (el: any) => (this.splitBarRef = el);
+  setDefaultContentRef = (el: HTMLElement) => (this.contentRef = el);
+
+  renderContentGhost = () => {
+    const { horizontal } = this.props;
+    const { offset } = this.state;
+    const { marginLeft, marginRight, marginTop, marginBottom, height, width } = getComputedStyle(this.contentRef);
+    return (
+      <SplitterContentGhost
+        horizontal={horizontal}
+        offset={offset}
+        marginLeft={marginLeft}
+        marginRight={marginRight}
+        marginTop={marginTop}
+        marginBottom={marginBottom}
+        height={height}
+        width={width}
+      />
+    );
+  };
 
   render() {
-    const { handleDragStart, handleDragMove, handleDragEnd, setSplitBarRef } = this;
-    const { dragging, top, left } = this.state;
-    const SplitBar = this.props.horizontal ? HorizontalBar : VerticalBar;
+    const { handleDragStart, handleDragMove, handleDragEnd, setDefaultContentRef, renderContentGhost } = this;
+    const { horizontal } = this.props;
+    const { dragging } = this.state;
     return (
       <Draggable onDragStart={handleDragStart} onDragMove={handleDragMove} onDragEnd={handleDragEnd}>
-        <SplitBar innerRef={setSplitBarRef} dragging={dragging} top={top} left={left} />
+        <SplitterWrapper horizontal={horizontal}>
+          {dragging && renderContentGhost()}
+          <DefaultSplitterContent innerRef={setDefaultContentRef} horizontal={horizontal} />
+        </SplitterWrapper>
       </Draggable>
     );
   }

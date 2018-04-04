@@ -115,14 +115,13 @@ export class PanelLayout extends Component<PanelLayoutProps, PanelLayoutState> {
     const { renderPanel, renderSplitter } = this;
     const { orientation, children } = this.props;
     let panelIndex = 0;
-    let splitterIndex = 0;
 
     return (
       <PanelLayoutWrapper orientation={orientation}>
         {Children.map(
           children,
           (child: ReactElement<any>) =>
-            child.type === Panel ? renderPanel(child, panelIndex++) : renderSplitter(child, splitterIndex++)
+            child.type === Panel ? renderPanel(child, panelIndex++) : renderSplitter(child, panelIndex - 1)
         )}
       </PanelLayoutWrapper>
     );

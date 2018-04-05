@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Toolbox } from './Toolbox';
 
 const ToolbarWrapper = styled.div`
+  display: flex;
   flex: 1 1 auto;
-  background: lightskyblue;
 `;
 
 export class Toolbar extends Component {
   render() {
-    return <ToolbarWrapper>Toolbar</ToolbarWrapper>;
+    return (
+      <ToolbarWrapper>
+        <Toolbox />
+      </ToolbarWrapper>
+    );
   }
 }

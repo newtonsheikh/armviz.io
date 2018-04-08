@@ -26,6 +26,10 @@ interface Toolbar {
   background: string;
 }
 
+interface Panel {
+  background: string;
+}
+
 interface List {
   foreground: string;
   background: string;
@@ -47,6 +51,7 @@ export interface Theme {
   header: Header;
   sidebar: Sidebar;
   toolbar: Toolbar;
+  panel: Panel;
   list: List;
   listHead: ListTitle;
 }

@@ -1,2 +1,2 @@
-export * from './themes';
+export { default as themes } from './themes';
 export * from './styled-components';

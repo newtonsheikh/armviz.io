@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { styled } from 'theming';
 
 const Wrapper = styled.div`
   flex: 1 1 auto;
-  background: lightpink;
+  background: ${({ theme }) => theme.panel.background};
 `;
 
 export class Canvas extends Component {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { styled, ThemeProvider, themes } from 'theming';
 import { Header } from './Header';
 import { Workbench } from './Workbench';
 
-const Wrapper = styled.div`
+const AppWrapper = styled.div`
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -12,10 +12,12 @@ const Wrapper = styled.div`
 export default class App extends Component {
   render() {
     return (
-      <Wrapper>
-        <Header />
-        <Workbench />
-      </Wrapper>
+      <ThemeProvider theme={themes.dark}>
+        <AppWrapper>
+          <Header />
+          <Workbench />
+        </AppWrapper>
+      </ThemeProvider>
     );
   }
 }

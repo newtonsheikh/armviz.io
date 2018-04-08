@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { styled } from 'theming';
 
-const Wrapper = styled.div`
-  flex: 0 1 auto;
+const HeaderWrapper = styled.div`
   display: flex;
-  background: #9e9ac8;
-  padding: 0 8px;
+  flex: 0 1 auto;
   height: 40px;
+  padding: 0 8px;
   align-items: center;
+  color: ${({ theme }) => theme.header.foreground};
+  background: ${({ theme }) => theme.header.background};
 `;
 
 const Banner = styled.h3`
   margin: 0;
   padding: 0;
+  font-weight: 900;
+  color: ${({ theme }) => theme.banner.foreground};
 `;
 
 export class Header extends Component {
   render() {
     return (
-      <Wrapper>
+      <HeaderWrapper>
         <Banner>Header</Banner>
-      </Wrapper>
+      </HeaderWrapper>
     );
   }
 }

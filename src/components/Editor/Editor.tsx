@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import MonacoEditor from 'react-monaco-editor';
-import styled from 'styled-components';
+import { styled } from 'theming';
 
-const Wrapper = styled.div`
+const EditorWrapper = styled.div`
   flex: 1 1 auto;
+  background: ${({ theme }) => theme.panel.background};
 `;
 
 export class Editor extends Component {
@@ -38,10 +39,10 @@ export class Editor extends Component {
     // };
 
     return (
-      <Wrapper>
+      <EditorWrapper>
         {/* <MonacoEditor language="json" value={templateJson} options={options} editorDidMount={this.editorWillMount} /> */}
         Editor
-      </Wrapper>
+      </EditorWrapper>
     );
   }
 }

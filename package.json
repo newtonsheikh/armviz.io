@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "color": "^3.0.0",
+    "json-schema-ref-parser": "^5.0.3",
     "mobx": "^4.1.0",
     "mobx-react": "^5.0.0",
     "react": "^16.2.0",

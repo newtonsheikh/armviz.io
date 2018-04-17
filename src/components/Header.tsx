@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styled } from 'theming';
+// import { HeaderButton } from './shared/Buttons/HeaderButton';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -63,7 +64,30 @@ const Icon = Svg.extend`
   height: 16px;
 `;
 
+const HiddenInput = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  display: flex;
+  cursor: pointer;
+`;
+
 export class Header extends Component {
+  handleFileImport = (selectedFile: FileList) => {
+    // TODO: Va;idate file is json
+    // TODO: read and log file contents to monaco editor
+    const file = selectedFile.item(0);
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => this.fileLoadComplete(fileReader.result);
+    fileReader.readAsText(file, 'UTF8');
+  };
+
+  fileLoadComplete = (fileText: string) => {
+    // tslint:disable-next-line:no-console
+    console.log(fileText);
+  };
+
   render() {
     return (
       <HeaderWrapper>
@@ -77,10 +101,14 @@ export class Header extends Component {
         <VerticalLine />
         <Nav>
           <NavItem>
-            <Icon width="16" height="16" viewBox="0 0 1024 1024">
-              <path d="M859 795l16 16H107l85-86 299-298 65 64h-1l304 304zm-196-70L489 557 321 725h342zM128 299h725v85H128v-85z" />
-            </Icon>
-            <div>Import</div>
+            <Label htmlFor="fileImport">
+              <Icon width="16" height="16" viewBox="0 0 1024 1024">
+                <path d="M859 795l16 16H107l85-86 299-298 65 64h-1l304 304zm-196-70L489 557 321 725h342zM128 299h725v85H128v-85z" />
+              </Icon>
+              <div>Import</div>
+            </Label>
+            {/* tslint:disable-next-line:jsx-no-lambda */}
+            <HiddenInput type="file" id="fileImport" onChange={e => this.handleFileImport(e.target.files)} />
           </NavItem>
           <NavItem>
             <Icon width="16" height="16" viewBox="0 0 1024 1024">

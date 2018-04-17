@@ -74,11 +74,25 @@ const Label = styled.label`
 `;
 
 export class Header extends Component {
+  isJsonFile = (mimeType: string) => {
+    const validJson = mimeType.includes('json');
+    return validJson;
+  };
+
   handleFileImport = (selectedFile: FileList) => {
-    // TODO: Va;idate file is json
     // TODO: read and log file contents to monaco editor
     const file = selectedFile.item(0);
     const fileReader = new FileReader();
+
+    if (file == null) {
+      return;
+    }
+    if (!this.isJsonFile(file.type)) {
+      // tslint:disable-next-line:no-console
+      console.log('only json allowed');
+      return;
+    }
+
     fileReader.onloadend = () => this.fileLoadComplete(fileReader.result);
     fileReader.readAsText(file, 'UTF8');
   };

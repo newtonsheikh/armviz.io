@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { styled } from 'theming';
-// import { HeaderButton } from './shared/Buttons/HeaderButton';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -73,7 +72,11 @@ const Label = styled.label`
   cursor: pointer;
 `;
 
-export class Header extends Component {
+interface HeaderProps {
+  handleNewJson: (jsonContent: string) => void;
+}
+
+export class Header extends Component<HeaderProps, {}> {
   isJsonFile = (mimeType: string) => {
     const validJson = mimeType.includes('json');
     return validJson;
@@ -87,19 +90,15 @@ export class Header extends Component {
     if (file == null) {
       return;
     }
+
     if (!this.isJsonFile(file.type)) {
       // tslint:disable-next-line:no-console
       console.log('only json allowed');
       return;
     }
 
-    fileReader.onloadend = () => this.fileLoadComplete(fileReader.result);
+    fileReader.onloadend = () => this.props.handleNewJson(fileReader.result);
     fileReader.readAsText(file, 'UTF8');
-  };
-
-  fileLoadComplete = (fileText: string) => {
-    // tslint:disable-next-line:no-console
-    console.log(fileText);
   };
 
   render() {

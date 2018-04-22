@@ -5,8 +5,14 @@ import { Panel, PanelLayout, Splitter } from './shared/PanelLayout';
 // import { Sidebar } from './Sidebar';
 import { Toolbar } from './Toolbar';
 
-export class Workbench extends Component {
+interface WorkbenchProps {
+  editorContent: string;
+}
+
+export class Workbench extends Component<WorkbenchProps> {
   render() {
+    // tslint:disable-next-line:no-console
+    console.log(this.props.editorContent);
     return (
       <PanelLayout>
         {/* <Panel initSize={48} minSize={48} maxSize={48} fixed={true}>
@@ -16,14 +22,14 @@ export class Workbench extends Component {
           <Toolbar />
         </Panel>
         <Splitter />
-        <Panel minSize={480}>
+        <Panel minSize={480} isEditor={true}>
           <PanelLayout orientation={'vertical'}>
             <Panel minSize={80}>
               <Canvas />
             </Panel>
             <Splitter />
-            <Panel minSize={80}>
-              <Editor />
+            <Panel minSize={80} isEditor={true}>
+              <Editor content={this.props.editorContent} />
             </Panel>
           </PanelLayout>
         </Panel>

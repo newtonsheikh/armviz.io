@@ -9,7 +9,6 @@ export interface PanelProps {
   maxSize: number;
   fixed: boolean;
   onInitSizeChange?: (newInitSize: number) => any;
-  isEditor: boolean;
 }
 
 type PanelWrapperProps = Pick<PanelProps, 'horizontal' | 'size' | 'minSize' | 'maxSize' | 'fixed'>;
@@ -37,21 +36,8 @@ export class Panel extends Component<Partial<PanelProps>> {
     size: 1,
     minSize: 4,
     maxSize: Infinity,
-    fixed: false,
-    isEditor: false
+    fixed: false
   };
-
-  shouldComponentUpdate(nextProps: Readonly<PanelProps>) {
-    const { horizontal, size, minSize, maxSize, fixed, isEditor } = this.props;
-    return (
-      horizontal !== nextProps.horizontal ||
-      size !== nextProps.size ||
-      minSize !== nextProps.minSize ||
-      maxSize !== nextProps.maxSize ||
-      fixed !== nextProps.fixed ||
-      isEditor
-    );
-  }
 
   componentWillReceiveProps(nextProps: Readonly<PanelProps>) {
     const { initSize, onInitSizeChange } = this.props;

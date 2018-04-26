@@ -22,13 +22,13 @@ export class Workbench extends Component<WorkbenchProps> {
           <Toolbar />
         </Panel>
         <Splitter />
-        <Panel minSize={480} isEditor={true}>
+        <Panel minSize={480}>
           <PanelLayout orientation={'vertical'}>
             <Panel minSize={80}>
               <Canvas />
             </Panel>
             <Splitter />
-            <Panel minSize={80} isEditor={true}>
+            <Panel minSize={80}>
               <Editor content={this.props.editorContent} />
             </Panel>
           </PanelLayout>

@@ -52,7 +52,7 @@ export class PanelLayout extends Component<PanelLayoutProps, PanelLayoutState> {
   handleSplitterMoveEnd = (index: number, offset: number) => {
     const { refPanels, horizontal, normalizePanelSizes } = this;
     const panelSizes = Array.from(refPanels.values()).map(panel => {
-      const panelNode = findDOMNode(panel);
+      const panelNode = findDOMNode(panel) as Element;
       return {
         value: horizontal() ? panelNode.clientWidth : panelNode.clientHeight,
         fixed: panel.props.fixed

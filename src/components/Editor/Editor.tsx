@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MonacoEditor from 'react-monaco-editor';
+// import MonacoEditor from 'react-monaco-editor';
 import { styled } from 'theming';
 
 const EditorWrapper = styled.div`
@@ -25,20 +25,21 @@ export class Editor extends Component<EditorProps, {}> {
   }
 
   render() {
-    const options: monaco.editor.IEditorOptions = {
-      folding: true,
-      fixedOverflowWidgets: true,
-      automaticLayout: true
-    };
+    // const options: monaco.editor.IEditorOptions = {
+    //   folding: true,
+    //   fixedOverflowWidgets: true,
+    //   automaticLayout: true
+    // };
 
     return (
       <EditorWrapper>
-        <MonacoEditor
+        {/*<MonacoEditor
           language="json"
           value={this.props.content}
           options={options}
           editorDidMount={this.editorWillMount}
-        />
+        />*/}
+        Editor
       </EditorWrapper>
     );
   }

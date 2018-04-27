@@ -39,17 +39,6 @@ export class Panel extends Component<Partial<PanelProps>> {
     fixed: false
   };
 
-  shouldComponentUpdate(nextProps: Readonly<PanelProps>) {
-    const { horizontal, size, minSize, maxSize, fixed } = this.props;
-    return (
-      horizontal !== nextProps.horizontal ||
-      size !== nextProps.size ||
-      minSize !== nextProps.minSize ||
-      maxSize !== nextProps.maxSize ||
-      fixed !== nextProps.fixed
-    );
-  }
-
   componentWillReceiveProps(nextProps: Readonly<PanelProps>) {
     const { initSize, onInitSizeChange } = this.props;
     if (initSize !== nextProps.initSize) {

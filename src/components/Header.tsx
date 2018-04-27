@@ -63,7 +63,44 @@ const Icon = Svg.extend`
   height: 16px;
 `;
 
-export class Header extends Component {
+const HiddenInput = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  display: flex;
+  cursor: pointer;
+`;
+
+interface HeaderProps {
+  handleNewJson: (jsonContent: string) => void;
+}
+
+export class Header extends Component<HeaderProps, {}> {
+  isJsonFile = (mimeType: string) => {
+    const validJson = mimeType.includes('json');
+    return validJson;
+  };
+
+  handleFileImport = (selectedFile: FileList) => {
+    // TODO: read and log file contents to monaco editor
+    const file = selectedFile.item(0);
+    const fileReader = new FileReader();
+
+    if (file == null) {
+      return;
+    }
+
+    if (!this.isJsonFile(file.type)) {
+      // tslint:disable-next-line:no-console
+      console.log('only json allowed');
+      return;
+    }
+
+    fileReader.onloadend = () => this.props.handleNewJson(fileReader.result);
+    fileReader.readAsText(file, 'UTF8');
+  };
+
   render() {
     return (
       <HeaderWrapper>
@@ -77,10 +114,14 @@ export class Header extends Component {
         <VerticalLine />
         <Nav>
           <NavItem>
-            <Icon width="16" height="16" viewBox="0 0 1024 1024">
-              <path d="M859 795l16 16H107l85-86 299-298 65 64h-1l304 304zm-196-70L489 557 321 725h342zM128 299h725v85H128v-85z" />
-            </Icon>
-            <div>Import</div>
+            <Label htmlFor="fileImport">
+              <Icon width="16" height="16" viewBox="0 0 1024 1024">
+                <path d="M859 795l16 16H107l85-86 299-298 65 64h-1l304 304zm-196-70L489 557 321 725h342zM128 299h725v85H128v-85z" />
+              </Icon>
+              <div>Import</div>
+            </Label>
+            {/* tslint:disable-next-line:jsx-no-lambda */}
+            <HiddenInput type="file" id="fileImport" onChange={e => this.handleFileImport(e.target.files)} />
           </NavItem>
           <NavItem>
             <Icon width="16" height="16" viewBox="0 0 1024 1024">

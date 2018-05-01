@@ -5,6 +5,7 @@ import { FlatTreeNodes } from './types';
 
 interface TreeViewProps<T> {
   Arrow?: ComponentType<{ expanded: boolean }>;
+  Content?: ComponentType<T>;
   nodes: FlatTreeNodes<T>;
 }
 
@@ -57,7 +58,7 @@ export class TreeView<T> extends Component<TreeViewProps<T>, TreeViewState> {
 
   renderTreeItems = () => {
     const { nodeExpanded, handleToggle } = this;
-    const { Arrow, nodes } = this.props;
+    const { Arrow, Content, nodes } = this.props;
     const treeItems = [];
 
     for (let index = 0; index < nodes.length; ) {
@@ -73,6 +74,7 @@ export class TreeView<T> extends Component<TreeViewProps<T>, TreeViewState> {
           leaf={leaf}
           data={node}
           Arrow={Arrow}
+          Content={Content}
           onToggle={handleToggle}
         />
       );

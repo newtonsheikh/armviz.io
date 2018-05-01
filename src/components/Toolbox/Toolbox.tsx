@@ -1,40 +1,27 @@
-import { TreeNodes } from 'components/shared/TreeView';
+import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { TreeViewContainer } from '../shared/TreeView/TreeViewContainer';
+import { ToolboxStore } from 'stores/toolboxStore';
+import { styled } from 'theming';
+import { TreeView } from '../shared/TreeView';
+import { ToolboxItem } from './ToolboxItem';
 
-const nodes: TreeNodes<{ text: string }> = [
-  {
-    text: 'Compute',
-    expanded: true,
-    children: [
-      {
-        text: 'Disks'
-      },
-      {
-        text: 'Images'
-      },
-      {
-        text: 'Snapshots'
-      },
-      {
-        text: 'Virtual Machine',
-        expanded: true,
-        children: [
-          {
-            text: 'Extensions'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    text: 'Network',
-    children: []
-  }
-];
+interface ToolboxProps {
+  toolboxStore?: ToolboxStore;
+}
 
-export class Toolbox extends Component {
+const ToolboxWrapper = styled.div`
+  padding: 8px;
+`;
+
+@inject('toolboxStore')
+@observer
+export class Toolbox extends Component<ToolboxProps> {
   render() {
-    return <TreeViewContainer nodes={nodes} />;
+    const { toolboxStore } = this.props;
+    return (
+      <ToolboxWrapper>
+        <TreeView nodes={toolboxStore.resourceTree} Content={ToolboxItem} />
+      </ToolboxWrapper>
+    );
   }
 }

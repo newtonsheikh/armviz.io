@@ -8,7 +8,7 @@ interface TreeItemProps<T> {
   leaf: boolean;
   expanded?: boolean;
   Arrow?: ComponentType<{ expanded: boolean }>;
-  Content?: ComponentType<{ data: T }>;
+  Content?: ComponentType<T>;
   onToggle?: (index: number) => any;
 }
 
@@ -44,7 +44,7 @@ export class TreeItem<T> extends Component<TreeItemProps<T>> {
 
   render() {
     const { handleClick } = this;
-    const { depth, leaf, expanded, Arrow } = this.props;
+    const { data, depth, leaf, expanded, Arrow, Content } = this.props;
     return (
       <TreeItemWrapper>
         {!leaf && (
@@ -53,7 +53,7 @@ export class TreeItem<T> extends Component<TreeItemProps<T>> {
           </ArrowWrapper>
         )}
         <ContentWrapper depth={depth}>
-          <div style={{ height: '100%' }}>{(this.props.data as any).text}</div>
+          <Content {...data} />
         </ContentWrapper>
       </TreeItemWrapper>
     );

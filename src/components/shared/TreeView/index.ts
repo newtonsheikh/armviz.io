@@ -1,2 +1,2 @@
-export * from './TreeView';
-export { TreeNodes } from './types';
+export { TreeNode, TreeNodes } from './types';
+export { default as TreeView } from './TreeViewContainer';

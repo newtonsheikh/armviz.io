@@ -14,7 +14,7 @@
         "type": {
           "type": "string",
           "enum": [
-            "microsoft.insights/alertrules"
+            "Microsoft.Insights/alertrules"
           ]
         },
         "apiVersion": {

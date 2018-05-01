@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// import { Sidebar } from './Sidebar';
+import { TemplateStore } from '../stores';
 import { Canvas } from './Canvas';
 import { Editor } from './Editor';
 import { Panel, PanelLayout, Splitter } from './shared/PanelLayout';
@@ -6,13 +8,11 @@ import { Panel, PanelLayout, Splitter } from './shared/PanelLayout';
 import { Toolbar } from './Toolbar';
 
 interface WorkbenchProps {
-  editorContent: string;
+  templateStore: TemplateStore;
 }
 
-export class Workbench extends Component<WorkbenchProps> {
+export class Workbench extends Component<WorkbenchProps, {}> {
   render() {
-    // tslint:disable-next-line:no-console
-    console.log(this.props.editorContent);
     return (
       <PanelLayout>
         {/* <Panel initSize={48} minSize={48} maxSize={48} fixed={true}>
@@ -29,7 +29,7 @@ export class Workbench extends Component<WorkbenchProps> {
             </Panel>
             <Splitter />
             <Panel minSize={80}>
-              <Editor content={this.props.editorContent} />
+              <Editor templateStore={this.props.templateStore} />
             </Panel>
           </PanelLayout>
         </Panel>

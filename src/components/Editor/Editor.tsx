@@ -1,6 +1,8 @@
+import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-// import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from 'react-monaco-editor';
 import { styled } from 'theming';
+import { TemplateStore } from '../../stores';
 
 const EditorWrapper = styled.div`
   flex: 1 1 auto;
@@ -8,9 +10,10 @@ const EditorWrapper = styled.div`
 `;
 
 interface EditorProps {
-  content: string;
+  templateStore: TemplateStore;
 }
 
+@observer
 export class Editor extends Component<EditorProps, {}> {
   editorWillMount() {
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
@@ -25,21 +28,20 @@ export class Editor extends Component<EditorProps, {}> {
   }
 
   render() {
-    // const options: monaco.editor.IEditorOptions = {
-    //   folding: true,
-    //   fixedOverflowWidgets: true,
-    //   automaticLayout: true
-    // };
+    const options: monaco.editor.IEditorOptions = {
+      folding: true,
+      fixedOverflowWidgets: true,
+      automaticLayout: true
+    };
 
     return (
       <EditorWrapper>
-        {/*<MonacoEditor
+        <MonacoEditor
           language="json"
-          value={this.props.content}
+          value={this.props.templateStore.template}
           options={options}
           editorDidMount={this.editorWillMount}
-        />*/}
-        Editor
+        />
       </EditorWrapper>
     );
   }

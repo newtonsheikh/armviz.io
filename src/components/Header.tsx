@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { styled } from 'theming';
+import { TemplateStore } from '../stores';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ const Label = styled.label`
 `;
 
 interface HeaderProps {
-  handleNewJson: (jsonContent: string) => void;
+  templateStore: TemplateStore;
 }
 
 export class Header extends Component<HeaderProps, {}> {
@@ -83,7 +84,6 @@ export class Header extends Component<HeaderProps, {}> {
   };
 
   handleFileImport = (selectedFile: FileList) => {
-    // TODO: read and log file contents to monaco editor
     const file = selectedFile.item(0);
     const fileReader = new FileReader();
 
@@ -97,7 +97,7 @@ export class Header extends Component<HeaderProps, {}> {
       return;
     }
 
-    fileReader.onloadend = () => this.props.handleNewJson(fileReader.result);
+    fileReader.onloadend = () => this.props.templateStore.updateTemplate(fileReader.result);
     fileReader.readAsText(file, 'UTF8');
   };
 

@@ -1,2 +1,2 @@
 export * from './schemaStore';
-export * from './TemplateStore';
+export * from './templateStore';

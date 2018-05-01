@@ -10,6 +10,7 @@ interface ToolboxProps {
 }
 
 const ToolboxWrapper = styled.div`
+  flex: 1 1 auto;
   padding: 8px;
 `;
 

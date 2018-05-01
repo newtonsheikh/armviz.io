@@ -4,7 +4,6 @@ import { TemplateStore } from '../stores';
 
 const HeaderWrapper = styled.div`
   display: flex;
-  flex: 0 1 auto;
   height: 48px;
   color: ${({ theme }) => theme.header.foreground};
   background: ${({ theme }) => theme.header.background};

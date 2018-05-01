@@ -30,8 +30,7 @@ export class Editor extends Component<EditorProps, {}> {
   render() {
     const options: monaco.editor.IEditorOptions = {
       folding: true,
-      fixedOverflowWidgets: true,
-      automaticLayout: true
+      fixedOverflowWidgets: true
     };
 
     return (

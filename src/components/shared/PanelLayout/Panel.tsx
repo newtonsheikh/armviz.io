@@ -26,7 +26,6 @@ const PanelWrapper = styled.div`
   display: flex;
   flex-grow: ${({ size, fixed }) => (fixed ? 0 : size)};
   flex-basis: ${({ size, fixed }) => (fixed ? 'auto' : size + 'px')};
-  overflow: auto;
   ${(props: PanelWrapperProps) => setDimensions(props)};
 `;
 

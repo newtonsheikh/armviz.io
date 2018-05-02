@@ -14,6 +14,8 @@ interface AppProps {
 
 const AppWrapper = styled.div`
   height: 100%;
+  min-height: 0;
+  min-width: 0;
 `;
 
 @inject('schemaStore')

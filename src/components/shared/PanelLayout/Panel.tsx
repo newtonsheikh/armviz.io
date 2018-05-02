@@ -9,7 +9,6 @@ export interface PanelProps {
   maxSize: number;
   fixed: boolean;
   onInitSizeChanged?: (newInitSize: number) => any;
-  onSizeChanged?: (width: number, height: number) => any;
 }
 
 type PanelWrapperProps = Pick<PanelProps, 'horizontal' | 'size' | 'minSize' | 'maxSize' | 'fixed'>;

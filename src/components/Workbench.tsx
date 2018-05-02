@@ -10,7 +10,6 @@ interface WorkbenchProps {
 }
 
 export class Workbench extends Component<WorkbenchProps, {}> {
-  editorPanel: Panel;
   editor: Editor;
 
   handleLayoutUpdated = () => {
@@ -31,7 +30,7 @@ export class Workbench extends Component<WorkbenchProps, {}> {
               <Canvas />
             </Panel>
             <Splitter />
-            <Panel onSizeChanged={this.handleLayoutUpdated} minSize={80}>
+            <Panel minSize={80}>
               <Editor ref={el => (this.editor = el)} templateStore={this.props.templateStore} />
             </Panel>
           </PanelLayout>

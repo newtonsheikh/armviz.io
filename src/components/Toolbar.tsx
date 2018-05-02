@@ -4,9 +4,8 @@ import { Toolbox } from './Toolbox';
 
 const ToolbarWrapper = styled.div`
   display: flex;
-  flex: 1 1 auto;
+  flex: 1;
   overflow: auto;
-  white-space:nowrap;
   color: ${({ theme }) => theme.toolbar.foreground};
   background: ${({ theme }) => theme.toolbar.background};
   fill: currentColor;

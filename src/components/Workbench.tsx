@@ -17,7 +17,7 @@ export class Workbench extends Component<WorkbenchProps, {}> {
           <Toolbar />
         </Panel>
         <Splitter />
-        <Panel minSize={480}>
+        <Panel minSize={640}>
           <PanelLayout orientation={'vertical'}>
             <Panel minSize={80}>
               <Canvas />

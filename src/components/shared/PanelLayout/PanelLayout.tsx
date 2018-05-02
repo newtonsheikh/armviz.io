@@ -14,8 +14,10 @@ interface PanelLayoutState {
 
 const PanelLayoutWrapper = styled.div`
   display: flex;
-  flex: 1 1 auto;
   flex-direction: ${(props: PanelLayoutProps) => (props.orientation === 'horizontal' ? 'row' : 'column')};
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
 `;
 
 export class PanelLayout extends Component<PanelLayoutProps, PanelLayoutState> {

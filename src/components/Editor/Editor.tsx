@@ -6,6 +6,7 @@ import { TemplateStore } from '../../stores';
 
 const EditorWrapper = styled.div`
   flex: 1 1 auto;
+  overflow: hidden;
   background: ${({ theme }) => theme.panel.background};
 `;
 

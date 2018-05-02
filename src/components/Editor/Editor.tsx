@@ -16,6 +16,8 @@ interface EditorProps {
 
 @observer
 export class Editor extends Component<EditorProps, {}> {
+  instance: MonacoEditor;
+
   editorWillMount() {
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       schemas: [
@@ -28,6 +30,17 @@ export class Editor extends Component<EditorProps, {}> {
     });
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', () => this.layout());
+  }
+
+  layout = () => {
+    const { editor } = this.instance;
+    if (editor) {
+      editor.layout();
+    }
+  };
+
   render() {
     const options: monaco.editor.IEditorOptions = {
       folding: true,
@@ -37,6 +50,8 @@ export class Editor extends Component<EditorProps, {}> {
     return (
       <EditorWrapper>
         <MonacoEditor
+          ref={el => (this.instance = el)}
+          theme="vs-dark"
           language="json"
           value={this.props.templateStore.template}
           options={options}

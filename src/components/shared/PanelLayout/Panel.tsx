@@ -8,7 +8,8 @@ export interface PanelProps {
   minSize: number;
   maxSize: number;
   fixed: boolean;
-  onInitSizeChange?: (newInitSize: number) => any;
+  onInitSizeChanged?: (newInitSize: number) => any;
+  onSizeChanged?: (width: number, height: number) => any;
 }
 
 type PanelWrapperProps = Pick<PanelProps, 'horizontal' | 'size' | 'minSize' | 'maxSize' | 'fixed'>;
@@ -38,17 +39,25 @@ export class Panel extends Component<Partial<PanelProps>> {
     fixed: false
   };
 
+  panelElement: HTMLElement;
+
   componentWillReceiveProps(nextProps: Readonly<PanelProps>) {
-    const { initSize, onInitSizeChange } = this.props;
+    const { initSize, onInitSizeChanged } = this.props;
     if (initSize !== nextProps.initSize) {
-      onInitSizeChange(nextProps.initSize);
+      onInitSizeChanged(nextProps.initSize);
     }
   }
 
   render() {
     const { horizontal, size, minSize, maxSize, fixed, children } = this.props;
     return (
-      <PanelWrapper horizontal={horizontal} size={size} minSize={minSize} maxSize={maxSize} fixed={fixed}>
+      <PanelWrapper
+        horizontal={horizontal}
+        size={size}
+        minSize={minSize}
+        maxSize={maxSize}
+        fixed={fixed}
+      >
         {children}
       </PanelWrapper>
     );

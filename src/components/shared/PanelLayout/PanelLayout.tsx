@@ -6,6 +6,7 @@ import { Splitter } from './Splitter';
 
 interface PanelLayoutProps {
   orientation?: 'horizontal' | 'vertical';
+  onUpdated?: () => any;
 }
 
 interface PanelLayoutState {
@@ -36,6 +37,13 @@ export class PanelLayout extends Component<PanelLayoutProps, PanelLayoutState> {
   ref = HTMLDivElement;
   refPanels = new Map<number, Panel>();
   refSplitters = new Map<number, Splitter>();
+
+  componentDidUpdate() {
+    const { onUpdated } = this.props;
+    if (onUpdated) {
+      onUpdated();
+    }
+  }
 
   handleSplitterMoveStart = (index: number) => {
     const { refPanels, refSplitters, horizontal } = this;
@@ -92,10 +100,11 @@ export class PanelLayout extends Component<PanelLayoutProps, PanelLayoutState> {
     const { refPanels, horizontal } = this;
     const { panelSizes } = this.state;
     return cloneElement(child, {
+      ...child.props,
       key: `panel-${index}`,
       ref: (panel: Panel) => refPanels.set(index, panel),
       horizontal: horizontal(),
-      size: panelSizes[index]
+      size: panelSizes[index],
     });
   };
 

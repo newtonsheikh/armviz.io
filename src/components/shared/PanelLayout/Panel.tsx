@@ -18,7 +18,7 @@ const setDimensions = ({ horizontal, size, minSize, maxSize, fixed }: PanelWrapp
   return `
     ${dimension}: ${fixed ? `${size}px` : 'auto'};
     min-${dimension}: ${minSize}px;
-    max-${dimension}: ${maxSize}px;
+    max-${dimension}: ${maxSize === Infinity ? 'none' : `${maxSize}px`};
   `;
 };
 

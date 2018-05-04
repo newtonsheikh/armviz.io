@@ -1,17 +1,21 @@
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { ToolboxStore } from 'stores/toolboxStore';
-import { styled } from 'theming';
+import { styled } from 'theming/styledComponents';
+// import { styled } from 'theming';
 import { TreeView } from '../shared/TreeView';
+import { ScrollArea } from './../shared/ScrollArea';
 import { ToolboxItem } from './ToolboxItem';
 
 interface ToolboxProps {
   toolboxStore?: ToolboxStore;
 }
 
-const ToolboxWrapper = styled.div`
+const ToolboxWrapper = styled(ScrollArea)`
   flex: 1;
-  padding: 8px;
+  > .scroll-view {
+    padding: 8px;
+  }
 `;
 
 @inject('toolboxStore')

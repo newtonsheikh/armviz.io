@@ -77,25 +77,9 @@ interface HeaderProps {
 }
 
 export class Header extends Component<HeaderProps, {}> {
-  isJsonFile = (mimeType: string) => {
-    const validJson = mimeType.includes('json');
-    return validJson;
-  };
-
   handleFileImport = (selectedFile: FileList) => {
     const file = selectedFile.item(0);
     const fileReader = new FileReader();
-
-    if (file == null) {
-      return;
-    }
-
-    if (!this.isJsonFile(file.type)) {
-      // tslint:disable-next-line:no-console
-      console.log('only json allowed');
-      return;
-    }
-
     fileReader.onloadend = () => this.props.templateStore.updateTemplate(fileReader.result);
     fileReader.readAsText(file, 'UTF8');
   };

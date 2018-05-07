@@ -103,8 +103,13 @@ export class Header extends Component<HeaderProps, {}> {
               </Icon>
               <div>Import</div>
             </Label>
-            {/* tslint:disable-next-line:jsx-no-lambda */}
-            <HiddenInput type="file" id="fileImport" onChange={e => this.handleFileImport(e.target.files)} />
+            <HiddenInput
+              type="file"
+              id="fileImport"
+              accept=".json"
+              // tslint:disable-next-line:jsx-no-lambda
+              onChange={e => this.handleFileImport(e.target.files)}
+            />
           </NavItem>
           <NavItem>
             <Icon width="16" height="16" viewBox="0 0 1024 1024">

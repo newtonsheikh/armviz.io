@@ -1,56 +1,54 @@
 import React, { Component } from 'react';
-import Scrollbars from 'react-custom-scrollbars';
+import 'simplebar';
+import 'simplebar/dist/simplebar.css';
 import { styled } from 'theming';
 
-const StyledScrollbars = styled(Scrollbars)`
-  > .track {
-    opacity: 0;
-    > .thumb {
+interface ScrollAreaProps {
+  className?: string;
+}
+
+const ScrollAreaWrapper = styled.div`
+  .simplebar-track.vertical {
+    width: 12px;
+    .simplebar-scrollbar {
+      right: 0;
+      width: 100%;
+    }
+    .simplebar-scrollbar::before {
+      top: 0;
+      bottom: 0;
+      border-radius: 0;
       background: hsla(0, 0%, 47%, 0.4);
     }
-    &:active {
+    .simplebar-scrollbar.visible::before {
       opacity: 1;
     }
   }
-  > .track-vertical {
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 14px !important;
-  }
-  > .track-horizontal {
-    bottom: 0;
-    left: 0;
-    height: 10px !important;
-    width: 100%;
-  }
-  &:hover {
-    > .track {
+  .simplebar-track.horizontal {
+    height: 10px;
+    .simplebar-scrollbar {
+      top: 0;
+      height: 100%;
+    }
+    .simplebar-scrollbar::before {
+      left: 0;
+      right: 12.5px;
+      border-radius: 0;
+      background: hsla(0, 0%, 47%, 0.4);
+    }
+    .simplebar-scrollbar.visible::before {
       opacity: 1;
     }
   }
 `;
 
-export class ScrollArea extends Component {
-  renderView = (props: any) => <div {...props} className="scroll-view" />;
-
-  renderTrackVertical = (props: any) => <div {...props} className="track track-vertical" />;
-
-  renderTrackHorizontal = (props: any) => <div {...props} className="track track-horizontal" />;
-
-  renderThumb = (props: any) => <div {...props} className="thumb" />;
-
+export class ScrollArea extends Component<ScrollAreaProps> {
   render() {
-    const { props, renderView, renderTrackVertical, renderTrackHorizontal, renderThumb } = this;
+    const { className, children } = this.props;
     return (
-      <StyledScrollbars
-        {...props}
-        renderView={renderView}
-        renderTrackVertical={renderTrackVertical}
-        renderTrackHorizontal={renderTrackHorizontal}
-        renderThumbVertical={renderThumb}
-        renderThumbHorizontal={renderThumb}
-      />
+      <ScrollAreaWrapper className={className} data-simplebar={true}>
+        {children}
+      </ScrollAreaWrapper>
     );
   }
 }

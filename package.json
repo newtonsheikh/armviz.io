@@ -13,14 +13,8 @@
     "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "tslint --fix src/**/*.tsx src/**/*.ts -t verbose",
-      "git add"
-    ],
-    "*.{ts,tsx,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{ts,tsx}": ["tslint --fix src/**/*.tsx src/**/*.ts -t verbose", "git add"],
+    "*.{ts,tsx,json,css,md}": ["prettier --write", "git add"]
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -28,9 +22,9 @@
     "@types/json-schema": "^6.0.1",
     "@types/promise.prototype.finally": "^2.0.2",
     "@types/react": "^16.1.0",
-    "@types/react-custom-scrollbars": "^4.0.3",
     "@types/react-dom": "^16.0.4",
     "@types/react-monaco-editor": "^0.10.1",
+    "@types/simplebar": "^2.4.1",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
     "prettier": "^1.11.1",
@@ -48,9 +42,9 @@
     "mobx-react": "^5.0.0",
     "promise.prototype.finally": "^3.1.0",
     "react": "^16.2.0",
-    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.2.0",
     "react-monaco-editor": "^0.14.1",
+    "simplebar": "^2.6.1",
     "styled-components": "^3.2.3"
   }
 }

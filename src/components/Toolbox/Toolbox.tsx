@@ -13,9 +13,9 @@ interface ToolboxProps {
 
 const ToolboxWrapper = styled(ScrollArea)`
   flex: 1;
-  > .scroll-view {
+  /* > .scroll-view {
     padding: 8px;
-  }
+  } */
 `;
 
 @inject('toolboxStore')
